@@ -1,7 +1,8 @@
-import { fetchCategories, fetchPosts } from '../utils/api';
+import { fetchCategories, fetchPosts, fetchPostsByCategory } from '../utils/api';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY';
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY';
 
 export const receiveCategories = categories => ({
@@ -22,6 +23,16 @@ export const receivePosts = posts => ({
 export const getPosts = () => dispatch => (
     fetchPosts()
         .then(posts => dispatch(receivePosts(posts)))
+);
+
+export const receivePostsByCategory = posts => ({
+    type: RECEIVE_POSTS_BY_CATEGORY,
+    posts
+});
+
+export const getPostsByCategory = (category) => dispatch => (
+    fetchPostsByCategory(category)
+        .then(posts => dispatch(receivePostsByCategory(posts)))
 );
 
 export const setCurrentCategory = (currentCategory) => ({

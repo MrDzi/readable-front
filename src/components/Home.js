@@ -11,8 +11,10 @@ class Home extends Component {
         this.props.getCategories();
         this.props.getPosts();
     }
-    goToCategory(category) {
-
+    goToCategory = (currentCategory) => {
+        this.props.history.push({
+            pathname: `/category/${currentCategory}`
+        });
     }
     render() {
         return (
@@ -38,4 +40,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

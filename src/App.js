@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { createSelector } from 'reselect';
 import { Route } from 'react-router-dom';
 import Home from './components/Home';
+import Category from './components/Category';
 import './App.css';
 
 class App extends Component {
@@ -9,10 +9,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Route path="/" exact component={Home}></Route>
-                <Route path="/category/:category" render={() => (
-                    <div>test {this.props.match.params.category}</div>
-                )}>
-                </Route>
+                <Route path="/category/:currentCategory" component={Category}></Route>
             </div>
         );
     }
