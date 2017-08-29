@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import CategoriesList from './CategoriesList';
 import PostsList from './PostsList';
 import { getCategories, getPosts } from '../actions';
@@ -11,15 +10,10 @@ class Home extends Component {
         this.props.getCategories();
         this.props.getPosts();
     }
-    goToCategory = (currentCategory) => {
-        this.props.history.push({
-            pathname: `/category/${currentCategory}`
-        });
-    }
     render() {
         return (
             <div>
-                <CategoriesList categories={this.props.categories} goToCategory={this.goToCategory}></CategoriesList>
+                <CategoriesList categories={this.props.categories}></CategoriesList>
                 <PostsList posts={this.props.posts}></PostsList>
             </div>
         )
@@ -40,4 +34,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

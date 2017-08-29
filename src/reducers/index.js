@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY } from '../actions';
+import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_POST } from '../actions';
 
 const categoriesInitialState = {
     categories: [],
@@ -34,7 +34,7 @@ function posts(state = {}, action) {
     }
 }
 
-function postsByCategory(state = [], action) {
+function postsIdsByCategory(state = [], action) {
     const { type, posts } = action;
     switch (type) {
         case RECEIVE_POSTS_BY_CATEGORY:
@@ -44,12 +44,23 @@ function postsByCategory(state = [], action) {
     }
 }
 
+function post(state = {}, action) {
+    const { type, post } = action;
+    switch (type) {
+        case RECEIVE_POST:
+            return post;
+        default:
+            return state;
+    }
+}
+
 export const getPostsFromState = (state) => state.posts;
-export const getPostsByCategoryFromState = (state) => state.postsByCategory;
+export const getPostsIdsByCategoryFromState = (state) => state.postsIdsByCategory;
 export const getCurrentCategoryFromState = (state) => state.categories.currentCategory;
 
 export default combineReducers({
     categories,
     posts,
-    postsByCategory
+    postsIdsByCategory,
+    post
 });

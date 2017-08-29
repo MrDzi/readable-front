@@ -1,4 +1,4 @@
-import { params, normalize } from './helpers';
+import { params } from './helpers';
 
 const baseUrl = 'http://localhost:5001';
 
@@ -10,12 +10,15 @@ export function fetchCategories() {
 
 export function fetchPosts() {
     return fetch(`${baseUrl}/posts`, params)
-        .then(res => res.json())
-        .then(posts => normalize(posts));
+        .then(res => res.json());
 }
 
 export function fetchPostsByCategory(category) {
-    console.log(category);
     return fetch(`${baseUrl}/${category}/posts`, params)
+        .then(res => res.json());
+}
+
+export function fetchPost(postId) {
+    return fetch(`${baseUrl}/posts/${postId}`, params)
         .then(res => res.json());
 }
