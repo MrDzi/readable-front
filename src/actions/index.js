@@ -1,4 +1,5 @@
 import { fetchCategories, fetchPosts, fetchPostsByCategory } from '../utils/api';
+import { mapToIds } from '../utils/helpers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -32,7 +33,10 @@ export const receivePostsByCategory = posts => ({
 
 export const getPostsByCategory = (category) => dispatch => (
     fetchPostsByCategory(category)
-        .then(posts => dispatch(receivePostsByCategory(posts)))
+        .then(posts => {
+            dispatch(receivePostsByCategory(mapToIds(posts)));
+            dispatch(receivePosts(posts));
+        })
 );
 
 export const setCurrentCategory = (currentCategory) => ({

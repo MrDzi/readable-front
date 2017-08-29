@@ -25,18 +25,20 @@ function categories(state = categoriesInitialState, action) {
 }
 
 function posts(state = {}, action) {
-    switch (action.type) {
+    const { type, posts } = action;
+    switch (type) {
         case RECEIVE_POSTS:
-            return {...state, ...action.posts};
+            return {...state, ...posts};
         default:
             return state;
     }
 }
 
 function postsByCategory(state = [], action) {
-    switch (action.type) {
+    const { type, posts } = action;
+    switch (type) {
         case RECEIVE_POSTS_BY_CATEGORY:
-            return [...action.posts];
+            return [...posts];
         default:
             return state;
     }
