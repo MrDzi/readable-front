@@ -22,3 +22,8 @@ export function fetchPost(postId) {
     return fetch(`${baseUrl}/posts/${postId}`, params)
         .then(res => res.json());
 }
+
+export function fetchComments(postId) {
+    return fetch(`${baseUrl}/posts/${postId}/comments`, params)
+        .then(res => res.json())
+}

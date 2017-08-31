@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CategoriesList from './CategoriesList';
 import PostsList from './PostsList';
+import PostsListSortSelect from './PostsListSortSelect';
 import { getCategories, getPosts } from '../actions';
 import { getPostsSelector } from '../selectors'
 
@@ -14,6 +15,7 @@ class Home extends Component {
         return (
             <div>
                 <CategoriesList categories={this.props.categories}></CategoriesList>
+                <PostsListSortSelect></PostsListSortSelect>
                 <PostsList posts={this.props.posts}></PostsList>
             </div>
         )

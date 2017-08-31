@@ -1,17 +1,17 @@
 import { createSelector } from 'reselect';
-import { getPostsFromState, getCurrentCategoryFromState, getPostsIdsByCategoryFromState } from '../reducers';
+import { getPostsFromState, getPostsIdsByCategoryFromState, getCommentsFromState } from '../reducers';
+import { unNormalize } from '../utils/helpers';
 
-const getPostsSelectorFunction = (posts) => Object.values(posts);
 const getPostsIdsByCategoryFunction = (posts, postsByCategory) => posts.filter(
     post => postsByCategory.indexOf(post.id) > -1
 );
-const getFilteredPostsSelectorFunction = (posts, category) => posts.filter(
-    post => post.category === category
-);
+// const getFilteredPostsSelectorFunction = (posts, category) => posts.filter(
+//     post => post.category === category
+// );
 
 export const getPostsSelector = createSelector(
     getPostsFromState,
-    getPostsSelectorFunction
+    unNormalize
 );
 
 export const getPostsByCategorySelector = createSelector(
@@ -20,8 +20,7 @@ export const getPostsByCategorySelector = createSelector(
     getPostsIdsByCategoryFunction
 );
 
-export const getFilteredPostsSelector = createSelector(
-    getPostsSelector,
-    getCurrentCategoryFromState,
-    getFilteredPostsSelectorFunction
+export const getCommentsSelector = createSelector(
+    getCommentsFromState,
+    unNormalize
 );

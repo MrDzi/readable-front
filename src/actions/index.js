@@ -1,13 +1,16 @@
-import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost } from '../utils/api';
+import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments } from '../utils/api';
 import { mapToIds, normalize } from '../utils/helpers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY';
 export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY';
-export const RECEIVE_POST = 'RECEIVE_POST';
+export const RECEIVE_CURRENT_POST = 'RECEIVE_CURRENT_POST';
 export const SET_CURRENT_POST = 'SET_CURRENT_POST';
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+export const SET_SORTING_OPTION = 'SET_SORTING_OPTION';
 
+/*** Categories ***/
 export const receiveCategories = categories => ({
     type: RECEIVE_CATEGORIES,
     categories
@@ -18,6 +21,12 @@ export const getCategories = () => dispatch => (
         .then(categories => dispatch(receiveCategories(categories)))
 );
 
+export const setCurrentCategory = currentCategory => ({
+    type: SET_CURRENT_CATEGORY,
+    currentCategory
+});
+
+/*** Posts ***/
 export const receivePosts = posts => ({
     type: RECEIVE_POSTS,
     posts
@@ -28,12 +37,12 @@ export const getPosts = () => dispatch => (
         .then(posts => dispatch(receivePosts(normalize(posts))))
 );
 
-const receivePostsByCategory = posts => ({
+const receivePostsByCategory = postsIdsByCategory => ({
     type: RECEIVE_POSTS_BY_CATEGORY,
-    posts
+    postsIdsByCategory
 });
 
-export const getPostsByCategory = (category) => dispatch => (
+export const getPostsByCategory = category => dispatch => (
     fetchPostsByCategory(category)
         .then(posts => {
             dispatch(receivePostsByCategory(mapToIds(posts)));
@@ -41,23 +50,29 @@ export const getPostsByCategory = (category) => dispatch => (
         })
 );
 
-export const setCurrentCategory = (currentCategory) => ({
-    type: SET_CURRENT_CATEGORY,
-    currentCategory
+const receiveCurrentPost = currentPost => ({
+    type: RECEIVE_CURRENT_POST,
+    currentPost
 });
 
-const receivePost = post => ({
-    type: RECEIVE_POST,
-    post
-});
-
-export const getPost = (postId) => (dispatch, getState) => {
+export const getCurrentPost = postId => (dispatch, getState) => {
     const { posts } = getState();
-    return posts[postId] ? dispatch(receivePost(posts[postId])) : fetchPost(postId)
-        .then(post => dispatch(receivePost(post)));
+    return posts[postId] ? dispatch(receiveCurrentPost(posts[postId])) : fetchPost(postId)
+        .then(post => dispatch(receiveCurrentPost(post)));
 };
 
-export const setCurrentPost = (currentPostId) => ({
-    type: SET_CURRENT_POST,
-    currentPostId
+export const setSortingOption = sortingOption => ({
+    type: SET_SORTING_OPTION,
+    sortingOption
 });
+
+/*** Comments ***/
+const receiveComments = comments => ({
+    type: RECEIVE_COMMENTS,
+    comments
+});
+
+export const getComments = postId => dispatch => {
+    fetchComments(postId)
+        .then(comments => dispatch(receiveComments(normalize(comments))));
+};

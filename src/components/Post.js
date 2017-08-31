@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { getPostSelctor } from '../selectors';
-import { setCurrentPost, getPost } from '../actions';
+import { getCommentsSelector } from '../selectors';
+import { getCurrentPost, getComments } from '../actions';
 
 class Post extends Component {
     componentWillMount() {
         let postId = this.props.match.params.postId;
-        this.props.getPost(postId);
-        this.props.setCurrentPost(postId);
+        this.props.getCurrentPost(postId);
+        this.props.getComments(postId);
     }
     render() {
         return (
-            <div>{this.props.post.body}</div>
+            <div>
+                <div>{this.props.posts.currentPost.body}</div>
+                <ul>
+                    {this.props.comments.map(comment => (
+                        <li key={comment.id}>{comment.body}</li>
+                    ))}
+                </ul>
+            </div>
         )
     }
 }
 
-function mapStateToProps({ post }) {
+function mapStateToProps(state) {
     return {
-        post
+        posts: state.posts,
+        comments: getCommentsSelector(state)
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getPost: (postId) => dispatch(getPost(postId)),
-        setCurrentPost: (currentPostId) => dispatch(setCurrentPost(currentPostId))
+        getCurrentPost: postId => dispatch(getCurrentPost(postId)),
+        getComments: postId => dispatch(getComments(postId))
     }
 }
 

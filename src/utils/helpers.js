@@ -14,6 +14,8 @@ export const normalize = (collection) => {
     return normalizedData;
 }
 
+export const unNormalize = (obj) => Object.values(obj);
+
 export const mapToIds = (collection) => {
     return collection.map(item => item.id);
 }
