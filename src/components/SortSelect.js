@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setSortingOption } from '../actions';
+import { setPostsSortingOption } from '../actions';
 
-class PostsListSortSelect extends Component {
+class SortSelect extends Component {
     render() {
         return (
             <div>
                 <span>Sort by:</span>
-                <select>
+                <select onChange={(e) => this.props.setPostsSortingOption(e.target.value)}>
                     <option value="voteScore">Vote score</option>
                     <option value="timestamp">Timestamp</option>
                 </select>
@@ -18,8 +18,8 @@ class PostsListSortSelect extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setSortingOption: (sortingOption) => dispatch(setSortingOption(sortingOption))
+        setPostsSortingOption: (sortingOption) => dispatch(setPostsSortingOption(sortingOption))
     }
 }
 
-export default connect(null, mapDispatchToProps)(PostsListSortSelect);
+export default connect(null, mapDispatchToProps)(SortSelect);

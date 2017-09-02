@@ -5,7 +5,9 @@ export default function PostsList({ posts, goToPost }) {
     return (
         <ul>
             {posts.map(post => (
-                <li key={post.id}><Link to={`/post/${post.id}`}>{post.title}</Link></li>
+                <li key={post.id}>
+                    <Link to={`/post/${post.id}`}>{post.title} {post.voteScore} {post.timestamp}</Link>
+                </li>
             ))}
         </ul>
     )

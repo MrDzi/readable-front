@@ -8,7 +8,8 @@ export const SET_CURRENT_CATEGORY = 'SET_CURRENT_CATEGORY';
 export const RECEIVE_CURRENT_POST = 'RECEIVE_CURRENT_POST';
 export const SET_CURRENT_POST = 'SET_CURRENT_POST';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
-export const SET_SORTING_OPTION = 'SET_SORTING_OPTION';
+export const SET_POSTS_SORTING_OPTION = 'SET_POSTS_SORTING_OPTION';
+export const SET_COMMENTS_SORTING_OPTION = 'SET_COMMENTS_SORTING_OPTION';
 
 /*** Categories ***/
 export const receiveCategories = categories => ({
@@ -61,9 +62,14 @@ export const getCurrentPost = postId => (dispatch, getState) => {
         .then(post => dispatch(receiveCurrentPost(post)));
 };
 
-export const setSortingOption = sortingOption => ({
-    type: SET_SORTING_OPTION,
-    sortingOption
+export const setPostsSortingOption = postsSortingOption => ({
+    type: SET_POSTS_SORTING_OPTION,
+    postsSortingOption
+});
+
+export const setCommentsSortingOption = commentsSortingOption => ({
+    type: SET_COMMENTS_SORTING_OPTION,
+    commentsSortingOption
 });
 
 /*** Comments ***/

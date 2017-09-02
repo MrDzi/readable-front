@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS } from '../actions';
+import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION } from '../actions';
 
 const categoriesInitialState = {
     categories: [],
@@ -9,7 +9,8 @@ const categoriesInitialState = {
 
 const postsInitialState = {
     posts: {},
-    currentPost: {}
+    currentPost: {},
+    postsSortingOption: 'voteScore'
 }
 
 function categories(state = categoriesInitialState, action) {
@@ -36,7 +37,7 @@ function categories(state = categoriesInitialState, action) {
 }
 
 function posts(state = postsInitialState, action) {
-    const { type, posts, currentPost } = action;
+    const { type, posts, currentPost, postsSortingOption } = action;
     switch (type) {
         case RECEIVE_POSTS:
             return {
@@ -48,6 +49,11 @@ function posts(state = postsInitialState, action) {
                 ...state,
                 currentPost
             };
+        case SET_POSTS_SORTING_OPTION:
+            return {
+                ...state,
+                postsSortingOption
+            }
         default:
             return state;
     }
@@ -68,8 +74,8 @@ function comments(state = {}, action) {
 
 export const getPostsFromState = (state) => state.posts.posts;
 export const getPostsIdsByCategoryFromState = (state) => state.categories.postsIdsByCategory;
-export const getCurrentCategoryFromState = (state) => state.categories.currentCategory;
 export const getCommentsFromState = (state) => state.comments;
+export const getPostsSortingOptionFromState = (state) => state.posts.postsSortingOption;
 
 export default combineReducers({
     categories,

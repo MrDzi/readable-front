@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Home from './components/Home';
 import Category from './components/Category';
 import Post from './components/Post';
+import CreateEditPost from './components/CreateEditPost';
 import './App.css';
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
                 <Route path="/" exact component={Home}></Route>
                 <Route path="/category/:currentCategory" component={Category}></Route>
                 <Route path="/post/:postId" component={Post}></Route>
+                <Route path="/create-post" component={CreateEditPost}></Route>
             </div>
         );
     }

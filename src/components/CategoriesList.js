@@ -5,7 +5,9 @@ export default function CategoriesList({ categories, goToCategory }) {
     return (
         <ul>
             {categories.map(category => (
-                <li key={category.name}><Link to={`/category/${category.name}`}>{category.name}</Link></li>
+                <li key={category.name}>
+                    <Link to={`/category/${category.name}`}>{category.name}</Link>
+                </li>
             ))}
         </ul>
     )
