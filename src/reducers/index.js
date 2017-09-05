@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION } from '../actions';
 
 const categoriesInitialState = {
@@ -80,5 +81,6 @@ export const getPostsSortingOptionFromState = (state) => state.posts.postsSortin
 export default combineReducers({
     categories,
     posts,
-    comments
+    comments,
+    form: formReducer
 });

@@ -25,5 +25,12 @@ export function fetchPost(postId) {
 
 export function fetchComments(postId) {
     return fetch(`${baseUrl}/posts/${postId}/comments`, params)
-        .then(res => res.json())
+        .then(res => res.json());
+}
+
+export function apiAddPost(postObj) {
+    return fetch(`${baseUrl}/posts`, { ...params, method: 'POST', body: JSON.stringify(postObj)})
+        .then(res => {
+            console.log('add post api', res);
+        });
 }

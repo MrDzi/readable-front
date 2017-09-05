@@ -1,4 +1,4 @@
-import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments } from '../utils/api';
+import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost } from '../utils/api';
 import { mapToIds, normalize } from '../utils/helpers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
@@ -17,10 +17,11 @@ export const receiveCategories = categories => ({
     categories
 });
 
-export const getCategories = () => dispatch => (
-    fetchCategories()
+export const getCategories = () => (dispatch, getState) => {
+    const state = getState();
+    return state.categories && state.categories.categories.length ? state.categories.categories : fetchCategories()
         .then(categories => dispatch(receiveCategories(categories)))
-);
+};
 
 export const setCurrentCategory = currentCategory => ({
     type: SET_CURRENT_CATEGORY,
@@ -71,6 +72,13 @@ export const setCommentsSortingOption = commentsSortingOption => ({
     type: SET_COMMENTS_SORTING_OPTION,
     commentsSortingOption
 });
+
+export const addPost = postObj => dispatch => {
+    return apiAddPost(postObj)
+        .then(postObj => {
+            console.log('action', postObj);
+        })
+};
 
 /*** Comments ***/
 const receiveComments = comments => ({
