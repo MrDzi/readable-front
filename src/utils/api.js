@@ -51,8 +51,8 @@ export function apiDeleteComment(commentId) {
 
 export function apiUpdatePostScore(changePostScoreObj) {
     const { postId, option } = changePostScoreObj;
-    const body = { option };
-    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'POST', body: JSON.stringify(body)})
+    const payload = { option };
+    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'POST', body: JSON.stringify(payload)})
         .then(res => {
             console.log('post score api');
         });
@@ -67,9 +67,18 @@ export function apiDeletePost(postId) {
 
 export function apiUpdateCommentScore(changeCommentScoreObj) {
     const { commentId, option } = changeCommentScoreObj;
-    const body = { option };
-    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'POST', body: JSON.stringify(body)})
+    const payload = { option };
+    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'POST', body: JSON.stringify(payload)})
         .then(res => {
             console.log('comment score api');
         });
+}
+
+export function apiEditPost(editPostObj) {
+    const { postId, title, body } = editPostObj;
+    const payload = { title, body };
+    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
+        .then(res => {
+            console.log('edit comment');
+        })
 }

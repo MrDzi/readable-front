@@ -1,4 +1,4 @@
-import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost, apiAddComment, apiDeleteComment, apiUpdatePostScore, apiDeletePost , apiUpdateCommentScore } from '../utils/api';
+import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost, apiAddComment, apiDeleteComment, apiUpdatePostScore, apiDeletePost , apiUpdateCommentScore, apiEditPost } from '../utils/api';
 import { mapToIds, normalize, filterDeleted } from '../utils/helpers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
@@ -15,6 +15,7 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const CHANGE_POST_SCORE = 'CHANGE_POST_SCORE';
 export const REMOVE_POST = 'REMOVE_POST';
 export const CHANGE_COMMENT_SCORE = 'CHANGE_COMMENT_SCORE';
+export const EDIT_POST = 'EDIT_POST';
 
 /*** Categories ***/
 export const receiveCategories = categories => ({
@@ -98,7 +99,17 @@ export const deletePost = postId => dispatch => {
 const removePost = postId => ({
     type: REMOVE_POST,
     postId
-})
+});
+
+export const editPost = editPostObj => dispatch => {
+    return apiEditPost(editPostObj)
+        .then(res => dispatch(editExistingPost(editPostObj)));
+};
+
+const editExistingPost = editPostObj => ({
+    type: EDIT_POST,
+    editPostObj
+});
 
 /*** Comments ***/
 const receiveComments = comments => ({

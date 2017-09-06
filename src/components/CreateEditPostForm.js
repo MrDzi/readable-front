@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 let CreateEditPostForm = props => {
@@ -31,8 +32,14 @@ let CreateEditPostForm = props => {
     );
 }
 
+function mapStateToProps({ posts }) {
+    return {
+        initialValues: posts.currentPost
+    }
+}
+
 CreateEditPostForm = reduxForm({
     form: 'create-edit-post-form'
 })(CreateEditPostForm);
 
-export default CreateEditPostForm;
+export default connect(mapStateToProps, null)(CreateEditPostForm);

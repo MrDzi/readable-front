@@ -16,7 +16,7 @@ class Home extends Component {
         return (
             <div>
                 <CategoriesList categories={this.props.categories} />
-                <Link to="/create-post">Add New Post</Link>
+                <Link to="/post-create">Add New Post</Link>
                 <SortSelect target="posts" />
                 <PostsList posts={this.props.posts} />
             </div>

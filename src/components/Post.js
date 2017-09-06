@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import CommentsList from './CommentsList';
 import CommentsForm from './CommentsForm';
 import SortSelect from './SortSelect';
@@ -47,6 +47,7 @@ class Post extends Component {
                 </div>
                 <div>{this.props.posts.currentPost.body}</div>
                 <div>Score: {this.props.posts.currentPost.voteScore}</div>
+                <Link to={`/post-edit/${this.postId}`}>Edit</Link>
                 <SortSelect target="comments" />
                 <CommentsList comments={this.props.comments} handleDeleteComment={this.handleDeleteComment} handleCommentVoteScoreChange={this.handleCommentVoteScoreChange} />
                 <CommentsForm onSubmit={this.handleCommentSubmit} />

@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { addPost, getCategories } from '../actions';
-import { generateId } from '../utils/helpers';
 import CreateEditPostForm from './CreateEditPostForm';
+import { editPost, getCurrentPost, getCategories } from '../actions';
 
-class CreateEditPost extends Component {
+class EditPost extends Component {
+    constructor(props) {
+        super(props);
+        this.postId = this.props.match.params.postId;
+    }
     componentWillMount() {
         this.props.getCategories();
-    }
-    handleSubmit = (values) => {
-        console.log(values);
-        const id = generateId(),
-              timestamp = Date.now();
-        this.props.addPost({...values, id, timestamp});
-        this.props.history.push("/");
     }
     render() {
         return (
             <div>
-                <h1>Create Edit Post</h1>
+                <h1>Edit Post</h1>
                 <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} />
             </div>
-        );
+        )
     }
 }
 
@@ -34,9 +30,10 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addPost: (postObj) => dispatch(addPost(postObj)),
+        editPost: (postObj) => dispatch(editPost(postObj)),
+        getCurrentPost: postId => dispatch(getCurrentPost(postId)),
         getCategories: () => dispatch(getCategories())
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateEditPost));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPost));
