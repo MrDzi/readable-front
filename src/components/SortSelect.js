@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setPostsSortingOption } from '../actions';
+import { setPostsSortingOption, setCommentsSortingOption } from '../actions';
 
 class SortSelect extends Component {
+    handleSortChange(value) {
+        this.props.target === 'posts' && this.props.setPostsSortingOption(value);
+        this.props.target === 'comments' && this.props.setCommentsSortingOption(value);
+    }
     render() {
         return (
             <div>
-                <span>Sort by:</span>
-                <select onChange={(e) => this.props.setPostsSortingOption(e.target.value)}>
+                <span>Sort {this.props.target} by:</span>
+                <select onChange={(e) => this.handleSortChange(e.target.value)}>
                     <option value="voteScore">Vote score</option>
                     <option value="timestamp">Timestamp</option>
                 </select>
@@ -18,7 +22,8 @@ class SortSelect extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setPostsSortingOption: (sortingOption) => dispatch(setPostsSortingOption(sortingOption))
+        setPostsSortingOption: (sortingOption) => dispatch(setPostsSortingOption(sortingOption)),
+        setCommentsSortingOption: (sortingOption) => dispatch(setCommentsSortingOption(sortingOption))
     }
 }
 

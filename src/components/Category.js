@@ -14,7 +14,7 @@ class Category extends Component {
         return (
             <div>
                 <h1>{this.props.match.params.currentCategory}</h1>
-                <PostsList posts={this.props.postsByCategory}></PostsList>
+                <PostsList posts={this.props.postsByCategory} />
             </div>
         )
     }

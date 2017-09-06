@@ -32,7 +32,7 @@ let CreateEditPostForm = props => {
 }
 
 CreateEditPostForm = reduxForm({
-    form: 'create-edit-post'
+    form: 'create-edit-post-form'
 })(CreateEditPostForm);
 
 export default CreateEditPostForm;

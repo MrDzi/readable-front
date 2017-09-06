@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { addPost, getCategories } from '../actions';
+import { generateId } from '../utils/helpers';
 import CreateEditPostForm from './CreateEditPostForm';
 
 class CreateEditPost extends Component {
@@ -9,13 +11,16 @@ class CreateEditPost extends Component {
     }
     handleSubmit = (values) => {
         console.log(values);
-        this.props.addPost(values); // TODO id & timestamp
+        const id = generateId(),
+              timestamp = Date.now();
+        this.props.addPost({...values, id, timestamp});
+        this.props.history.push("/");
     }
     render() {
         return (
             <div>
                 <h1>Create Edit Post</h1>
-                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories}></CreateEditPostForm>
+                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} />
             </div>
         );
     }
@@ -34,4 +39,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateEditPost);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateEditPost));

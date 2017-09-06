@@ -1,5 +1,5 @@
-import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost } from '../utils/api';
-import { mapToIds, normalize } from '../utils/helpers';
+import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost, apiAddComment, apiDeleteComment, apiUpdatePostScore, apiDeletePost , apiUpdateCommentScore } from '../utils/api';
+import { mapToIds, normalize, filterDeleted } from '../utils/helpers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -10,6 +10,11 @@ export const SET_CURRENT_POST = 'SET_CURRENT_POST';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const SET_POSTS_SORTING_OPTION = 'SET_POSTS_SORTING_OPTION';
 export const SET_COMMENTS_SORTING_OPTION = 'SET_COMMENTS_SORTING_OPTION';
+export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const CHANGE_POST_SCORE = 'CHANGE_POST_SCORE';
+export const REMOVE_POST = 'REMOVE_POST';
+export const CHANGE_COMMENT_SCORE = 'CHANGE_COMMENT_SCORE';
 
 /*** Categories ***/
 export const receiveCategories = categories => ({
@@ -36,7 +41,7 @@ export const receivePosts = posts => ({
 
 export const getPosts = () => dispatch => (
     fetchPosts()
-        .then(posts => dispatch(receivePosts(normalize(posts))))
+        .then(posts => dispatch(receivePosts(normalize(filterDeleted(posts)))))
 );
 
 const receivePostsByCategory = postsIdsByCategory => ({
@@ -68,17 +73,32 @@ export const setPostsSortingOption = postsSortingOption => ({
     postsSortingOption
 });
 
-export const setCommentsSortingOption = commentsSortingOption => ({
-    type: SET_COMMENTS_SORTING_OPTION,
-    commentsSortingOption
-});
-
 export const addPost = postObj => dispatch => {
     return apiAddPost(postObj)
         .then(postObj => {
             console.log('action', postObj);
         })
 };
+
+export const updatePostScore = changePostScoreObj => dispatch => {
+    return apiUpdatePostScore(changePostScoreObj)
+        .then(() => dispatch(changePostScore(changePostScoreObj)));
+}
+
+const changePostScore = changePostScoreObj => ({
+    type: CHANGE_POST_SCORE,
+    changePostScoreObj
+});
+
+export const deletePost = postId => dispatch => {
+    return apiDeletePost(postId)
+        .then(() => dispatch(removePost(postId)));
+}
+
+const removePost = postId => ({
+    type: REMOVE_POST,
+    postId
+})
 
 /*** Comments ***/
 const receiveComments = comments => ({
@@ -88,5 +108,40 @@ const receiveComments = comments => ({
 
 export const getComments = postId => dispatch => {
     fetchComments(postId)
-        .then(comments => dispatch(receiveComments(normalize(comments))));
+        .then(comments => dispatch(receiveComments(normalize(filterDeleted(comments)))));
 };
+
+export const addComment = commentObj => dispatch => {
+    return apiAddComment(commentObj)
+        .then(res => dispatch(receiveComment(commentObj)));
+};
+
+const receiveComment = comment => ({
+    type: RECEIVE_COMMENT,
+    comment
+});
+
+export const deleteComment = commentId => dispatch => {
+    return apiDeleteComment(commentId)
+        .then(res => dispatch(removeComment(commentId)))
+}
+
+const removeComment = commentId => ({
+    type: REMOVE_COMMENT,
+    commentId
+});
+
+export const setCommentsSortingOption = commentsSortingOption => ({
+    type: SET_COMMENTS_SORTING_OPTION,
+    commentsSortingOption
+});
+
+export const updateCommentScore = changeCommentScoreObj => dispatch => {
+    return apiUpdateCommentScore(changeCommentScoreObj)
+        .then(() => dispatch(changeCommentScore(changeCommentScoreObj)));
+}
+
+const changeCommentScore = changeCommentScoreObj => ({
+    type: CHANGE_COMMENT_SCORE,
+    changeCommentScoreObj
+});

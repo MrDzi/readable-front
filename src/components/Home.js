@@ -15,10 +15,10 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <CategoriesList categories={this.props.categories}></CategoriesList>
+                <CategoriesList categories={this.props.categories} />
                 <Link to="/create-post">Add New Post</Link>
-                <SortSelect></SortSelect>
-                <PostsList posts={this.props.posts}></PostsList>
+                <SortSelect target="posts" />
+                <PostsList posts={this.props.posts} />
             </div>
         )
     }

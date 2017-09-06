@@ -1,19 +1,19 @@
 import { createSelector } from 'reselect';
-import { getPostsFromState, getPostsIdsByCategoryFromState, getCommentsFromState, getPostsSortingOptionFromState } from '../reducers';
+import { getPostsFromState, getPostsIdsByCategoryFromState, getCommentsFromState, getPostsSortingOptionFromState, getCommentsSortingOptionFromState } from '../reducers';
 import { unNormalize } from '../utils/helpers';
 
 const getPostsIdsByCategoryFunction = (posts, postsByCategory) => posts.filter(
     post => postsByCategory.indexOf(post.id) > -1
 );
 
-const getPostsFunction = (posts, postsSortingOption) => (
-    unNormalize(posts).sort((a,b) => a[postsSortingOption] < b[postsSortingOption])
+const getPostsCommentsFunction = (collection, sortingOption) => (
+    unNormalize(collection).sort((a,b) => a[sortingOption] < b[sortingOption])
 );
 
 export const getPostsSelector = createSelector(
     getPostsFromState,
     getPostsSortingOptionFromState,
-    getPostsFunction
+    getPostsCommentsFunction
 );
 
 export const getPostsByCategorySelector = createSelector(
@@ -24,5 +24,6 @@ export const getPostsByCategorySelector = createSelector(
 
 export const getCommentsSelector = createSelector(
     getCommentsFromState,
-    unNormalize
+    getCommentsSortingOptionFromState,
+    getPostsCommentsFunction
 );
