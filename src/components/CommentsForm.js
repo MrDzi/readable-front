@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 let CommentsForm = props => {
@@ -18,8 +19,14 @@ let CommentsForm = props => {
     );
 }
 
+function mapStateToProps({ comments }) {
+    return {
+        initialValues: comments.currentComment
+    }
+}
+
 CommentsForm = reduxForm({
     form: 'comments-form'
 })(CommentsForm);
 
-export default CommentsForm;
+export default connect(mapStateToProps)(CommentsForm);

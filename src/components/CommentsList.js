@@ -6,9 +6,14 @@ export default function CommentsList({ comments, handleDeleteComment, handleComm
         <ul>
             {comments.map(comment => (
                 <li key={comment.id}>
-                    {comment.body} <span>{comment.voteScore}</span>
-                    <span onClick={() => handleDeleteComment(comment.id)}>Delete</span>
-                    <VoteScoreControls handleVoteScoreChange={(option) => handleCommentVoteScoreChange(option, comment.id)} />
+                    <div>
+                        {comment.body} <span>{comment.voteScore}</span>
+                        <span onClick={() => handleDeleteComment(comment.id)}>Delete</span>
+                        <VoteScoreControls handleVoteScoreChange={(option) => handleCommentVoteScoreChange(option, comment.id)} />
+                    </div>
+                    <div>
+                        
+                    </div>
                 </li>
             ))}
         </ul>

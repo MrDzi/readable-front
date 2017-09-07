@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import CategoriesList from './CategoriesList';
 import PostsList from './PostsList';
 import SortSelect from './SortSelect';
-import { getCategories, getPosts } from '../actions';
+import { getCategories, getPosts, receiveCurrentPost } from '../actions';
 import { getPostsSelector } from '../selectors'
 
 class Home extends Component {
@@ -12,13 +12,17 @@ class Home extends Component {
         this.props.getCategories();
         this.props.getPosts();
     }
+    editPost = postObj => {
+        this.props.receiveCurrentPost(postObj);
+        this.props.history.push(`/post-edit/${postObj.id}`);
+    }
     render() {
         return (
             <div>
                 <CategoriesList categories={this.props.categories} />
                 <Link to="/post-create">Add New Post</Link>
                 <SortSelect target="posts" />
-                <PostsList posts={this.props.posts} />
+                <PostsList posts={this.props.posts} editPost={this.editPost} />
             </div>
         )
     }
@@ -34,8 +38,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getCategories: () => dispatch(getCategories()),
-        getPosts: () => dispatch(getPosts())
+        getPosts: () => dispatch(getPosts()),
+        receiveCurrentPost: currentPost => dispatch(receiveCurrentPost(currentPost))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
