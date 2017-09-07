@@ -58,14 +58,14 @@ export const getPostsByCategory = category => dispatch => (
         })
 );
 
-const receiveCurrentPost = currentPost => ({
+export const receiveCurrentPost = currentPost => ({
     type: RECEIVE_CURRENT_POST,
     currentPost
 });
 
 export const getCurrentPost = postId => (dispatch, getState) => {
     const { posts } = getState();
-    return posts[postId] ? dispatch(receiveCurrentPost(posts[postId])) : fetchPost(postId)
+    return posts.posts[postId] ? dispatch(receiveCurrentPost(posts.posts[postId])) : fetchPost(postId)
         .then(post => dispatch(receiveCurrentPost(post)));
 };
 

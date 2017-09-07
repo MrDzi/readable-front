@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { addPost, getCategories } from '../actions';
+import { addPost, getCategories, receiveCurrentPost } from '../actions';
 import { generateId } from '../utils/helpers';
 import CreateEditPostForm from './CreateEditPostForm';
 
 class CreatePost extends Component {
     componentWillMount() {
         this.props.getCategories();
+        this.props.receiveCurrentPost({});
     }
     handleSubmit = (values) => {
         console.log(values);
@@ -34,8 +35,9 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addPost: (postObj) => dispatch(addPost(postObj)),
-        getCategories: () => dispatch(getCategories())
+        addPost: postObj => dispatch(addPost(postObj)),
+        getCategories: () => dispatch(getCategories()),
+        receiveCurrentPost: currentPost => dispatch(receiveCurrentPost(currentPost))
     }
 }
 

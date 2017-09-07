@@ -45,8 +45,8 @@ class Post extends Component {
                     <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
                     <span onClick={this.handleDeletePost}>Delete</span>
                 </div>
-                <div>{this.props.posts.currentPost.body}</div>
-                <div>Score: {this.props.posts.currentPost.voteScore}</div>
+                <div>{this.props.currentPost.body}</div>
+                <div>Score: {this.props.currentPost.voteScore}</div>
                 <Link to={`/post-edit/${this.postId}`}>Edit</Link>
                 <SortSelect target="comments" />
                 <CommentsList comments={this.props.comments} handleDeleteComment={this.handleDeleteComment} handleCommentVoteScoreChange={this.handleCommentVoteScoreChange} />
@@ -58,7 +58,7 @@ class Post extends Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts,
+        currentPost: state.posts.currentPost,
         comments: getCommentsSelector(state)
     }
 }
