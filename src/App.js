@@ -11,8 +11,8 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Route path="/" exact component={Home}></Route>
-                <Route path="/category/:currentCategory" component={Category}></Route>
+                <Route exact path="/" component={Home}></Route>
+                <Route exact path="/:currentCategory" component={Category}></Route>
                 <Route path="/post/:postId" component={Post}></Route>
                 <Route path="/post-create" component={CreatePost}></Route>
                 <Route path="/post-edit/:postId" component={EditPost}></Route>

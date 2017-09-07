@@ -29,7 +29,21 @@ export function fetchPosts() {
 
 export function fetchPostsByCategory(category) {
     return fetch(`${baseUrl}/${category}/posts`, params)
-        .then(res => res.json());
+        .then(res => res.json())
+        .then(posts => {
+            let promiseList = [];
+            for (let post of posts) {
+                promiseList.push(
+                    fetch(`${baseUrl}/posts/${post.id}/comments`, params)
+                        .then(res => res.json())
+                        .then(res => {
+                            post.commentsCount = res.length;
+                            return post;
+                        })
+                )
+            }
+            return Promise.all(promiseList).then(posts => posts);
+        });
 }
 
 export function fetchPost(postId) {

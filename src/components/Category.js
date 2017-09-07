@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import PostsList from './PostsList';
+import SortSelect from './SortSelect';
 import { getPostsByCategorySelector, getPostsSelector } from '../selectors';
-import { getPostsByCategory, setCurrentCategory } from '../actions';
+import { getPostsByCategory, setCurrentCategory, receiveCurrentPost } from '../actions';
 
 class Category extends Component {
     componentWillMount() {
@@ -10,11 +12,17 @@ class Category extends Component {
         this.props.setCurrentCategory(currentCategory);
         this.props.getPostsByCategory(currentCategory);
     }
+    editPost = postObj => {
+        this.props.receiveCurrentPost(postObj);
+        this.props.history.push(`/post-edit/${postObj.id}`);
+    }
     render() {
         return (
             <div>
                 <h1>{this.props.match.params.currentCategory}</h1>
-                <PostsList posts={this.props.postsByCategory} />
+                <Link to="/post-create">Add New Post</Link>
+                <SortSelect target="posts" />
+                <PostsList posts={this.props.postsByCategory} editPost={this.editPost} />
             </div>
         )
     }
@@ -30,8 +38,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getPostsByCategory: (currentCategory) => dispatch(getPostsByCategory(currentCategory)),
-        setCurrentCategory: (currentCategory) => dispatch(setCurrentCategory(currentCategory))
+        setCurrentCategory: (currentCategory) => dispatch(setCurrentCategory(currentCategory)),
+        receiveCurrentPost: currentPost => dispatch(receiveCurrentPost(currentPost))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Category));
