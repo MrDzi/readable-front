@@ -19,14 +19,16 @@ let CommentsForm = props => {
     );
 }
 
-function mapStateToProps({ comments }) {
+function mapStateToProps({ comments }, props) {
+    console.log(props);
     return {
-        initialValues: comments.currentComment
+        initialValues: props.type === 'create' ? {} : comments.editCommentDraft
     }
 }
 
 CommentsForm = reduxForm({
-    form: 'comments-form'
+    form: 'comments-form',
+    enableReinitialize: true
 })(CommentsForm);
 
 export default connect(mapStateToProps)(CommentsForm);

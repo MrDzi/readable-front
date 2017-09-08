@@ -1,4 +1,4 @@
-import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost, apiAddComment, apiDeleteComment, apiUpdatePostScore, apiDeletePost , apiUpdateCommentScore, apiEditPost } from '../utils/api';
+import { fetchCategories, fetchPosts, fetchPostsByCategory, fetchPost, fetchComments, apiAddPost, apiAddComment, apiDeleteComment, apiUpdatePostScore, apiDeletePost , apiUpdateCommentScore, apiEditPost, apiEditComment } from '../utils/api';
 import { mapToIds, normalize, filterDeleted } from '../utils/helpers';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
@@ -16,6 +16,9 @@ export const CHANGE_POST_SCORE = 'CHANGE_POST_SCORE';
 export const REMOVE_POST = 'REMOVE_POST';
 export const CHANGE_COMMENT_SCORE = 'CHANGE_COMMENT_SCORE';
 export const EDIT_POST = 'EDIT_POST';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const TOGGLE_EDIT_COMMENT_MODAL = 'TOGGLE_EDIT_COMMENT_MODAL';
+export const SET_EDIT_COMMENT_DRAFT = 'SET_EDIT_COMMENT_DRAFT';
 
 /*** Categories ***/
 export const receiveCategories = categories => ({
@@ -155,4 +158,24 @@ export const updateCommentScore = changeCommentScoreObj => dispatch => {
 const changeCommentScore = changeCommentScoreObj => ({
     type: CHANGE_COMMENT_SCORE,
     changeCommentScoreObj
+});
+
+export const editComment = commentObj => dispatch => {
+    return apiEditComment(commentObj)
+        .then(() => dispatch(editExistingComment(commentObj)));
+}
+
+const editExistingComment = commentObj => ({
+    type: EDIT_COMMENT,
+    commentObj
+});
+
+export const toggleEditCommentModal = editCommentModalOpened => ({
+    type: TOGGLE_EDIT_COMMENT_MODAL,
+    editCommentModalOpened
+});
+
+export const setEditCommentDraft = editCommentDraft => ({
+    type: SET_EDIT_COMMENT_DRAFT,
+    editCommentDraft
 });

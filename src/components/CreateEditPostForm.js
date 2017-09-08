@@ -42,4 +42,4 @@ CreateEditPostForm = reduxForm({
     form: 'create-edit-post-form'
 })(CreateEditPostForm);
 
-export default connect(mapStateToProps, null)(CreateEditPostForm);
+export default connect(mapStateToProps)(CreateEditPostForm);

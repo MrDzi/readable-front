@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION, RECEIVE_COMMENT, REMOVE_COMMENT, SET_COMMENTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, CHANGE_COMMENT_SCORE } from '../actions';
+import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION, RECEIVE_COMMENT, REMOVE_COMMENT, SET_COMMENTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, CHANGE_COMMENT_SCORE, EDIT_COMMENT, SET_EDIT_COMMENT_DRAFT, TOGGLE_EDIT_COMMENT_MODAL } from '../actions';
 
 const categoriesInitialState = {
     categories: [],
@@ -16,7 +16,9 @@ const postsInitialState = {
 
 const commentsInitialState = {
     comments: {},
-    commentsSortingOption: 'voteScore'
+    commentsSortingOption: 'voteScore',
+    editCommentModalOpened: false,
+    editCommentDraft: {}
 }
 
 function categories(state = categoriesInitialState, action) {
@@ -88,7 +90,7 @@ function posts(state = postsInitialState, action) {
 }
 
 function comments(state = commentsInitialState, action) {
-    const { type, comments, comment, commentId, commentsSortingOption, changeCommentScoreObj } = action;
+    const { type, comments, comment, commentId, commentObj, commentsSortingOption, changeCommentScoreObj, editCommentModalOpened, editCommentDraft } = action;
     switch (type) {
         case RECEIVE_COMMENTS:
             return {
@@ -133,6 +135,27 @@ function comments(state = commentsInitialState, action) {
                         voteScore
                     }
                 }
+            }
+        case EDIT_COMMENT:
+            return {
+                ...state,
+                comments: {
+                    ...state.comments,
+                    [commentObj.id]: {
+                        ...state.comments[commentObj.id],
+                        ...commentObj
+                    }
+                }
+            }
+        case TOGGLE_EDIT_COMMENT_MODAL:
+            return {
+                ...state,
+                editCommentModalOpened
+            }
+        case SET_EDIT_COMMENT_DRAFT:
+            return {
+                ...state,
+                editCommentDraft
             }
         default:
             return state;

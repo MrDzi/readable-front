@@ -6,7 +6,7 @@ import CommentsForm from './CommentsForm';
 import SortSelect from './SortSelect';
 import VoteScoreControls from './VoteScoreControls';
 import { getCommentsSelector } from '../selectors';
-import { getCurrentPost, getComments, addComment, deleteComment, updatePostScore, updateCommentScore, deletePost } from '../actions';
+import { getCurrentPost, getComments, addComment, updatePostScore, deletePost } from '../actions';
 import { generateId } from '../utils/helpers';
 
 class Post extends Component {
@@ -19,7 +19,6 @@ class Post extends Component {
         this.props.getComments(this.postId);
     }
     handleCommentSubmit = (values) => {
-        console.log(values);
         const id = generateId(),
               timestamp = Date.now(),
               voteScore = 1;
@@ -29,14 +28,8 @@ class Post extends Component {
         this.props.deletePost(this.postId);
         this.props.history.push("/");
     }
-    handleDeleteComment = (commentId) => {
-        this.props.deleteComment(commentId);
-    }
     handlePostVoteScoreChange = (option) => {
         this.props.updatePostScore({postId: this.postId, option})
-    }
-    handleCommentVoteScoreChange = (option, commentId) => {
-        this.props.updateCommentScore({commentId, option})
     }
     render() {
         return (
@@ -49,8 +42,8 @@ class Post extends Component {
                 <div>Score: {this.props.currentPost.voteScore}</div>
                 <Link to={`/post-edit/${this.postId}`}>Edit</Link>
                 <SortSelect target="comments" />
-                <CommentsList comments={this.props.comments} handleDeleteComment={this.handleDeleteComment} handleCommentVoteScoreChange={this.handleCommentVoteScoreChange} />
-                <CommentsForm onSubmit={this.handleCommentSubmit} />
+                <CommentsList comments={this.props.comments} handleCommentDelete={this.handleCommentDelete} handleCommentVoteScoreChange={this.handleCommentVoteScoreChange} handleCommentEdit={this.handleCommentEdit} />
+                <CommentsForm type="create" onSubmit={this.handleCommentSubmit} />
             </div>
         )
     }
@@ -68,9 +61,7 @@ function mapDispatchToProps(dispatch) {
         getCurrentPost: postId => dispatch(getCurrentPost(postId)),
         getComments: postId => dispatch(getComments(postId)),
         addComment: commentObj => dispatch(addComment(commentObj)),
-        deleteComment: commentId => dispatch(deleteComment(commentId)),
         updatePostScore: changeScorePostObj => dispatch(updatePostScore(changeScorePostObj)),
-        updateCommentScore: changeScoreCommentObj => dispatch(updateCommentScore(changeScoreCommentObj)),
         deletePost: postId => dispatch(deletePost(postId))
     }
 }

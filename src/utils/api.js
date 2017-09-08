@@ -107,6 +107,15 @@ export function apiEditPost(editPostObj) {
     const payload = { title, body };
     return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
         .then(res => {
+            console.log('edit post');
+        })
+}
+
+export function apiEditComment(commentObj) {
+    const { commentId, title, body } = commentObj;
+    const payload = { title, body };
+    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
+        .then(res => {
             console.log('edit comment');
         })
 }
