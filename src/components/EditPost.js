@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CreateEditPostForm from './CreateEditPostForm';
-import { editPost, getCurrentPost, getCategories } from '../actions';
+import { editPost, setCurrentPost, getCategories } from '../actions';
 
 class EditPost extends Component {
     constructor(props) {
@@ -12,11 +12,15 @@ class EditPost extends Component {
     componentWillMount() {
         this.props.getCategories();
     }
+    handleSubmit = (values) => {
+        this.props.editPost(values);
+        this.props.history.push("/");
+    }
     render() {
         return (
             <div>
                 <h1>Edit Post</h1>
-                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} />
+                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} type="edit" />
             </div>
         )
     }
@@ -30,8 +34,8 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        editPost: (postObj) => dispatch(editPost(postObj)),
-        getCurrentPost: postId => dispatch(getCurrentPost(postId)),
+        editPost: postObj => dispatch(editPost(postObj)),
+        setCurrentPost: postId => dispatch(setCurrentPost(postId)),
         getCategories: () => dispatch(getCategories())
     }
 }

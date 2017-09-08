@@ -6,7 +6,7 @@ import CommentsForm from './CommentsForm';
 import SortSelect from './SortSelect';
 import VoteScoreControls from './VoteScoreControls';
 import { getCommentsSelector } from '../selectors';
-import { getCurrentPost, getComments, addComment, updatePostScore, deletePost } from '../actions';
+import { setCurrentPost, getComments, addComment, updatePostScore, deletePost } from '../actions';
 import { generateId } from '../utils/helpers';
 
 class Post extends Component {
@@ -15,7 +15,7 @@ class Post extends Component {
         this.postId = this.props.match.params.postId;
     }
     componentWillMount() {
-        this.props.getCurrentPost(this.postId);
+        this.props.setCurrentPost(this.postId);
         this.props.getComments(this.postId);
     }
     handleCommentSubmit = (values) => {
@@ -34,6 +34,7 @@ class Post extends Component {
     render() {
         return (
             <div>
+                <h3>{this.props.currentPost.title}</h3>
                 <div>
                     <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
                     <span onClick={this.handleDeletePost}>Delete</span>
@@ -43,7 +44,7 @@ class Post extends Component {
                 <Link to={`/post-edit/${this.postId}`}>Edit</Link>
                 <SortSelect target="comments" />
                 <CommentsList comments={this.props.comments} handleCommentDelete={this.handleCommentDelete} handleCommentVoteScoreChange={this.handleCommentVoteScoreChange} handleCommentEdit={this.handleCommentEdit} />
-                <CommentsForm type="create" onSubmit={this.handleCommentSubmit} />
+                <CommentsForm type="create" onSubmit={this.handleCommentSubmit} handleCommentSubmit={this.handleCommentSubmit} />
             </div>
         )
     }
@@ -58,7 +59,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getCurrentPost: postId => dispatch(getCurrentPost(postId)),
+        setCurrentPost: postId => dispatch(setCurrentPost(postId)),
         getComments: postId => dispatch(getComments(postId)),
         addComment: commentObj => dispatch(addComment(commentObj)),
         updatePostScore: changeScorePostObj => dispatch(updatePostScore(changeScorePostObj)),

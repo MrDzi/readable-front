@@ -66,7 +66,7 @@ export const receiveCurrentPost = currentPost => ({
     currentPost
 });
 
-export const getCurrentPost = postId => (dispatch, getState) => {
+export const setCurrentPost = postId => (dispatch, getState) => {
     const { posts } = getState();
     return posts.posts[postId] ? dispatch(receiveCurrentPost(posts.posts[postId])) : fetchPost(postId)
         .then(post => dispatch(receiveCurrentPost(post)));

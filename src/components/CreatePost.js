@@ -21,7 +21,7 @@ class CreatePost extends Component {
         return (
             <div>
                 <h1>Create Post</h1>
-                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} />
+                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} type="create" />
             </div>
         );
     }

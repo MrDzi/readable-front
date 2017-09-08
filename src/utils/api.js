@@ -103,9 +103,9 @@ export function apiUpdateCommentScore(changeCommentScoreObj) {
 }
 
 export function apiEditPost(editPostObj) {
-    const { postId, title, body } = editPostObj;
+    const { id, title, body } = editPostObj;
     const payload = { title, body };
-    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
+    return fetch(`${baseUrl}/posts/${id}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
         .then(res => {
             console.log('edit post');
         })

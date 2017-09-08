@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION, RECEIVE_COMMENT, REMOVE_COMMENT, SET_COMMENTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, CHANGE_COMMENT_SCORE, EDIT_COMMENT, SET_EDIT_COMMENT_DRAFT, TOGGLE_EDIT_COMMENT_MODAL } from '../actions';
+import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION, RECEIVE_COMMENT, REMOVE_COMMENT, SET_COMMENTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, CHANGE_COMMENT_SCORE, EDIT_COMMENT, SET_EDIT_COMMENT_DRAFT, TOGGLE_EDIT_COMMENT_MODAL, EDIT_POST } from '../actions';
 
 const categoriesInitialState = {
     categories: [],
@@ -45,7 +45,7 @@ function categories(state = categoriesInitialState, action) {
 }
 
 function posts(state = postsInitialState, action) {
-    const { type, posts, currentPost, postId, postsSortingOption, changePostScoreObj } = action;
+    const { type, posts, currentPost, postId, editPostObj, postsSortingOption, changePostScoreObj } = action;
     switch (type) {
         case RECEIVE_POSTS:
             return {
@@ -63,14 +63,28 @@ function posts(state = postsInitialState, action) {
                 postsSortingOption
             }
         case CHANGE_POST_SCORE:
-            const { voteScore: currentVoteScore } = state.currentPost
+            const { voteScore: currentVoteScore } = state.posts[changePostScoreObj.postId]
             const voteScore = changePostScoreObj.option === 'upVote' ? currentVoteScore + 1 :
             currentVoteScore - 1;
             return {
                 ...state,
-                currentPost: {
-                    ...state.currentPost,
-                    voteScore
+                posts: {
+                    ...state.posts,
+                    [changePostScoreObj.postId]: {
+                        ...state.posts[changePostScoreObj.postId],
+                        voteScore
+                    }
+                }
+            }
+        case EDIT_POST:
+            return {
+                ...state,
+                posts: {
+                    ...state.posts,
+                    [editPostObj.id]: {
+                        ...state.posts[editPostObj.id],
+                        ...editPostObj
+                    }
                 }
             }
         case REMOVE_POST:
