@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import CommentsList from './CommentsList';
-import CommentsForm from './CommentsForm';
-import SortSelect from './SortSelect';
-import VoteScoreControls from './VoteScoreControls';
-import { getCommentsSelector } from '../selectors';
-import { setCurrentPost, getComments, addComment, updatePostScore, deletePost } from '../actions';
-import { generateId } from '../utils/helpers';
+import CommentsList from '../comments/CommentsList';
+import CommentsForm from '../comments/CommentsForm';
+import SortSelect from '../shared/SortSelect';
+import VoteScoreControls from '../shared/VoteScoreControls';
+import { getCommentsSelector } from '../../selectors';
+import { setCurrentPost, updatePostScore, deletePost } from './actions';
+import { getComments, addComment } from '../comments/actions';
+import { generateId } from '../../utils/helpers';
 
 class Post extends Component {
     constructor(props) {

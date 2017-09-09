@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import PostsList from './PostsList';
-import SortSelect from './SortSelect';
-import { getPostsByCategorySelector } from '../selectors';
-import { getPostsByCategory, setCurrentCategory } from '../actions';
+import PostsList from '../posts/PostsList';
+import SortSelect from '../shared/SortSelect';
+import { getPostsByCategorySelector } from '../../selectors';
+import { getPostsByCategory, setCurrentCategory } from './actions';
 
 class Category extends Component {
     componentWillMount() {

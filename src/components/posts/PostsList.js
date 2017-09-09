@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import VoteScoreControls from './VoteScoreControls';
-import ConfirmModal from './ConfirmModal';
-import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore, setConfirmModal } from '../actions';
+import VoteScoreControls from '../shared/VoteScoreControls';
+import ConfirmModal from '../shared/ConfirmModal';
+import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore, setConfirmModal } from './actions';
 
 class PostsList extends Component {
     handlePostVoteScoreChange = (postId, option) => {

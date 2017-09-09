@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Home from './components/Home';
-import Category from './components/Category';
-import Post from './components/Post';
-import CreatePost from './components/CreatePost';
-import EditPost from './components/EditPost';
+import Category from './components/categories/Category';
+import Post from './components/posts/Post';
+import CreatePost from './components/posts/CreatePost';
+import EditPost from './components/posts/EditPost';
 import './App.css';
 
 class App extends Component {

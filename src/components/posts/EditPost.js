@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CreateEditPostForm from './CreateEditPostForm';
-import { editPost, setCurrentPost, getCategories } from '../actions';
+import { editPost, setCurrentPost } from './actions';
+import { getCategories } from '../categories/actions';
 
 class EditPost extends Component {
     constructor(props) {

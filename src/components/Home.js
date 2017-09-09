@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CategoriesList from './CategoriesList';
-import PostsList from './PostsList';
-import SortSelect from './SortSelect';
-import { getCategories, getPosts } from '../actions';
-import { getPostsSelector } from '../selectors'
+import CategoriesList from './categories/CategoriesList';
+import PostsList from './posts/PostsList';
+import SortSelect from './shared/SortSelect';
+import { getCategories } from './categories/actions';
+import { getPosts } from './posts/actions';
+import { getPostsSelector } from '../selectors';
 
 class Home extends Component {
     componentWillMount() {

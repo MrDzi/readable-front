@@ -26,14 +26,15 @@ class CommentsForm extends Component {
     }
 }
 
-function mapStateToProps({ comments }, props) {
+function mapStateToProps({ comments }, { type }) {
     return {
-        initialValues: props.type === 'create' ? {} : comments.editCommentDraft
+        initialValues: type === 'create' ? {} : comments.editCommentDraft
     }
 }
 
 CommentsForm = reduxForm({
-    form: 'comments-form'
+    form: 'comments-form',
+    reinitialize: true
 })(CommentsForm);
 
 export default connect(mapStateToProps)(CommentsForm);

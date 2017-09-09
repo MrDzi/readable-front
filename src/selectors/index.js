@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
-import { getPostsFromState, getPostsIdsByCategoryFromState, getCommentsFromState, getPostsSortingOptionFromState, getCommentsSortingOptionFromState } from '../reducers';
+import { getPostsIdsByCategoryFromState } from '../components/categories/reducers';
+import { getPostsFromState, getPostsSortingOptionFromState } from '../components/posts/reducers';
+import { getCommentsFromState, getCommentsSortingOptionFromState } from '../components/comments/reducers';
 import { unNormalize } from '../utils/helpers';
 
 const getPostsIdsByCategoryFunction = (posts, postsByCategory) => posts.filter(

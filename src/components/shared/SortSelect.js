@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setPostsSortingOption, setCommentsSortingOption } from '../actions';
+import { setPostsSortingOption } from '../posts/actions';
+import { setCommentsSortingOption } from '../comments/actions';
 
 class SortSelect extends Component {
     handleSortChange(value) {

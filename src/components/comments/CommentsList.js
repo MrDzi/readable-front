@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import VoteScoreControls from './VoteScoreControls';
+import VoteScoreControls from '../shared/VoteScoreControls';
 import CommentsForm from './CommentsForm';
-import { deleteComment, updateCommentScore, editComment, toggleEditCommentModal, setEditCommentDraft } from '../actions';
+import { deleteComment, updateCommentScore, editComment, toggleEditCommentModal, setEditCommentDraft } from './actions';
 
 class CommentsList extends Component {
     handleCommentDelete = (commentId) => {
@@ -39,7 +39,7 @@ class CommentsList extends Component {
                     ))}
                 </ul>
                 <Modal isOpen={this.props.editCommentModalOpened} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Edit comment</ModalHeader>
                     <ModalBody>
                         <CommentsForm type="edit" onSubmit={this.handleCommentEdit} />
                     </ModalBody>
