@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { withRouter } from 'react-router-dom';
 
 let CreateEditPostForm = props => {
-    const { handleSubmit, categories, type } = props;
+    const { handleSubmit, categories, type, history } = props;
     return (
         <form onSubmit={handleSubmit}>
             {type === 'create' &&
@@ -32,6 +33,7 @@ let CreateEditPostForm = props => {
                 </div>
             }
             <button type="submit">Submit</button>
+            <button onClick={history.goBack}>Cancel</button>
         </form>
     );
 }
@@ -43,7 +45,7 @@ function mapStateToProps({ posts }) {
 }
 
 CreateEditPostForm = reduxForm({
-    form: 'create-edit-post-form'
+    form: 'post-form'
 })(CreateEditPostForm);
 
-export default connect(mapStateToProps)(CreateEditPostForm);
+export default withRouter(connect(mapStateToProps)(CreateEditPostForm));

@@ -18,7 +18,10 @@ class CommentsList extends Component {
     }
     openEditCommentModal(commentObj) {
         this.props.toggleEditCommentModal(true);
-        this.props.setEditCommentDraft(commentObj)
+        this.props.setEditCommentDraft(commentObj);
+    }
+    componentWillUnmount() {
+        this.props.toggleEditCommentModal(false);
     }
     render() {
         return (

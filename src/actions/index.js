@@ -19,6 +19,12 @@ export const EDIT_POST = 'EDIT_POST';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const TOGGLE_EDIT_COMMENT_MODAL = 'TOGGLE_EDIT_COMMENT_MODAL';
 export const SET_EDIT_COMMENT_DRAFT = 'SET_EDIT_COMMENT_DRAFT';
+export const SET_CONFIRM_MODAL = 'SET_CONFIRM_MODAL';
+
+export const setConfirmModal = confirmModal => ({
+    type: SET_CONFIRM_MODAL,
+    confirmModal
+});
 
 /*** Categories ***/
 export const receiveCategories = categories => ({

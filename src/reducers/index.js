@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION, RECEIVE_COMMENT, REMOVE_COMMENT, SET_COMMENTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, CHANGE_COMMENT_SCORE, EDIT_COMMENT, SET_EDIT_COMMENT_DRAFT, TOGGLE_EDIT_COMMENT_MODAL, EDIT_POST } from '../actions';
+import { RECEIVE_CATEGORIES, RECEIVE_POSTS, SET_CURRENT_CATEGORY, RECEIVE_POSTS_BY_CATEGORY, RECEIVE_CURRENT_POST, RECEIVE_COMMENTS, SET_POSTS_SORTING_OPTION, RECEIVE_COMMENT, REMOVE_COMMENT, SET_COMMENTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, CHANGE_COMMENT_SCORE, EDIT_COMMENT, SET_EDIT_COMMENT_DRAFT, TOGGLE_EDIT_COMMENT_MODAL, EDIT_POST, SET_CONFIRM_MODAL } from '../actions';
 
 const categoriesInitialState = {
     categories: [],
@@ -11,7 +11,7 @@ const categoriesInitialState = {
 const postsInitialState = {
     posts: {},
     currentPost: {},
-    postsSortingOption: 'voteScore'
+    postsSortingOption: 'voteScore',
 }
 
 const commentsInitialState = {
@@ -19,6 +19,11 @@ const commentsInitialState = {
     commentsSortingOption: 'voteScore',
     editCommentModalOpened: false,
     editCommentDraft: {}
+}
+
+const confirmModalInitialState = {
+    isOpen: false,
+    id: ''
 }
 
 function categories(state = categoriesInitialState, action) {
@@ -45,7 +50,7 @@ function categories(state = categoriesInitialState, action) {
 }
 
 function posts(state = postsInitialState, action) {
-    const { type, posts, currentPost, postId, editPostObj, postsSortingOption, changePostScoreObj } = action;
+    const { type, posts, currentPost, postId, editPostObj, postsSortingOption, changePostScoreObj, confirmModal } = action;
     switch (type) {
         case RECEIVE_POSTS:
             return {
@@ -176,6 +181,19 @@ function comments(state = commentsInitialState, action) {
     }
 }
 
+function confirmModal(state = confirmModalInitialState, action) {
+    const { type, confirmModal } = action;
+    switch (type) {
+        case SET_CONFIRM_MODAL:
+            return {
+                ...state,
+                ...confirmModal
+            }
+        default:
+            return state;
+    }
+}
+
 export const getPostsFromState = (state) => state.posts.posts;
 export const getPostsIdsByCategoryFromState = (state) => state.categories.postsIdsByCategory;
 export const getCommentsFromState = (state) => state.comments.comments;
@@ -186,5 +204,6 @@ export default combineReducers({
     categories,
     posts,
     comments,
+    confirmModal,
     form: formReducer
 });
