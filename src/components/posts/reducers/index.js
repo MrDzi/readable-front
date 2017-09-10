@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import { RECEIVE_POSTS, RECEIVE_CURRENT_POST, SET_POSTS_SORTING_OPTION, CHANGE_POST_SCORE, REMOVE_POST, EDIT_POST } from '../actions';
 
 const postsInitialState = {
@@ -8,8 +6,8 @@ const postsInitialState = {
     postsSortingOption: 'voteScore',
 }
 
-function posts(state = postsInitialState, action) {
-    const { type, posts, currentPost, postId, editPostObj, postsSortingOption, changePostScoreObj, confirmModal } = action;
+export default function posts(state = postsInitialState, action) {
+    const { type, posts, currentPost, postId, editPostObj, postsSortingOption, changePostScoreObj } = action;
     switch (type) {
         case RECEIVE_POSTS:
             return {

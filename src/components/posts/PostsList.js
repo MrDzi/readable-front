@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import ConfirmModal from '../shared/ConfirmModal';
-import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore, setConfirmModal } from './actions';
+import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore } from './actions';
+import { setConfirmModal } from '../../Actions';
 
 class PostsList extends Component {
     handlePostVoteScoreChange = (postId, option) => {

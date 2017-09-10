@@ -1,5 +1,5 @@
 import { fetchPosts, fetchPost, apiAddPost, apiUpdatePostScore, apiDeletePost, apiEditPost } from '../../../utils/api';
-import { mapToIds, normalize, filterDeleted } from '../../../utils/helpers';
+import { normalize, filterDeleted } from '../../../utils/helpers';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_CURRENT_POST = 'RECEIVE_CURRENT_POST';
