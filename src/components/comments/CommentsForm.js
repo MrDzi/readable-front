@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
+let formType = null;
+
 class CommentsForm extends Component {
     submit = (values) => {
         const { handleCommentSubmit, reset } = this.props;
@@ -27,13 +29,14 @@ class CommentsForm extends Component {
 }
 
 function mapStateToProps({ comments }, { type }) {
+    formType = type;
     return {
         initialValues: type === 'create' ? {} : comments.editCommentDraft
     }
 }
 
 CommentsForm = reduxForm({
-    form: 'comments-form',
+    form: `comments-form-${formType}`,
     reinitialize: true
 })(CommentsForm);
 

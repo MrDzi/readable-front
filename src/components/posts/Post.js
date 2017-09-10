@@ -5,6 +5,8 @@ import CommentsList from '../comments/CommentsList';
 import CommentsForm from '../comments/CommentsForm';
 import SortSelect from '../shared/SortSelect';
 import VoteScoreControls from '../shared/VoteScoreControls';
+import ConfirmModal from '../shared/ConfirmModal';
+import { setConfirmModal } from '../../Actions';
 import { getCommentsSelector } from '../../selectors';
 import { setCurrentPost, updatePostScore, deletePost } from './actions';
 import { getComments, addComment } from '../comments/actions';
@@ -25,12 +27,16 @@ class Post extends Component {
               voteScore = 1;
         this.props.addComment({...values, id, timestamp, voteScore, parentId: this.postId});
     }
-    handleDeletePost = () => {
-        this.props.deletePost(this.postId);
-        this.props.history.push("/");
-    }
     handlePostVoteScoreChange = (option) => {
         this.props.updatePostScore({postId: this.postId, option})
+    }
+    handleDeletePost = () => {
+        this.props.deletePost(this.postId);
+        this.props.setConfirmModal({
+            isPostModalOpen: false,
+            id: ''
+        });
+        this.props.history.push("/");
     }
     render() {
         return (
@@ -38,14 +44,19 @@ class Post extends Component {
                 <h3>{this.props.currentPost.title}</h3>
                 <div>
                     <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
-                    <span onClick={this.handleDeletePost}>Delete</span>
+                    <span onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: this.postId})}>Delete</span>
                 </div>
                 <div>{this.props.currentPost.body}</div>
                 <div>Score: {this.props.currentPost.voteScore}</div>
                 <Link to={`/post-edit/${this.postId}`}>Edit</Link>
                 <SortSelect target="comments" />
-                <CommentsList comments={this.props.comments} handleCommentDelete={this.handleCommentDelete} handleCommentVoteScoreChange={this.handleCommentVoteScoreChange} handleCommentEdit={this.handleCommentEdit} />
+                <CommentsList comments={this.props.comments} />
                 <CommentsForm type="create" onSubmit={this.handleCommentSubmit} handleCommentSubmit={this.handleCommentSubmit} />
+                <ConfirmModal
+                    handleSubmit={this.handleDeletePost}
+                    isOpen={this.props.confirmModal.isPostModalOpen}
+                    action="delete this post"
+                />
             </div>
         )
     }
@@ -54,7 +65,8 @@ class Post extends Component {
 function mapStateToProps(state) {
     return {
         currentPost: state.posts.currentPost,
-        comments: getCommentsSelector(state)
+        comments: getCommentsSelector(state),
+        confirmModal: state.confirmModal
     }
 }
 
@@ -64,7 +76,8 @@ function mapDispatchToProps(dispatch) {
         getComments: postId => dispatch(getComments(postId)),
         addComment: commentObj => dispatch(addComment(commentObj)),
         updatePostScore: changeScorePostObj => dispatch(updatePostScore(changeScorePostObj)),
-        deletePost: postId => dispatch(deletePost(postId))
+        deletePost: postId => dispatch(deletePost(postId)),
+        setConfirmModal: confirmModal => dispatch(setConfirmModal(confirmModal))
     }
 }
 

@@ -19,13 +19,7 @@ class PostsList extends Component {
     handleDeletePost = () => {
         this.props.deletePost(this.props.confirmModal.id);
         this.props.setConfirmModal({
-            isOpen: false,
-            id: ''
-        });
-    }
-    handleCancelDeletePost = () => {
-        this.props.setConfirmModal({
-            isOpen: false,
+            isPostModalOpen: false,
             id: ''
         });
     }
@@ -46,15 +40,14 @@ class PostsList extends Component {
                                 <div>comments: {post.commentsCount}</div>
                             </div>
                             <span onClick={() => this.handleEditPost(post)}>Edit</span>
-                            <span onClick={() => this.props.setConfirmModal({isOpen: true, id: post.id})}>Delete</span>
+                            <span onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: post.id})}>Delete</span>
                             <hr></hr>
                         </li>
                     ))}
                 </ul>
                 <ConfirmModal
                     handleSubmit={this.handleDeletePost}
-                    handleCancel={this.handleCancelDeletePost}
-                    isOpen={this.props.confirmModal.isOpen}
+                    isOpen={this.props.confirmModal.isPostModalOpen}
                     action="delete this post"
                 />
             </div>

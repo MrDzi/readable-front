@@ -3,14 +3,19 @@ import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import CommentsForm from './CommentsForm';
+import ConfirmModal from '../shared/ConfirmModal';
+import { setConfirmModal } from '../../Actions';
 import { deleteComment, updateCommentScore, editComment, toggleEditCommentModal, setEditCommentDraft } from './actions';
 
 class CommentsList extends Component {
-    handleCommentDelete = (commentId) => {
-        this.props.deleteComment(commentId);
+    handleCommentDelete = () => {
+        this.props.deleteComment(this.props.confirmModal.id);
+        this.props.setConfirmModal({
+            isCommentModalOpen: false,
+            id: ''
+        });
     }
-    handleCommentEdit = (values) => {
-        debugger;
+    handleCommentEdit = values => {
         this.props.editComment(values);
     }
     handleCommentVoteScoreChange = (option, commentId) => {
@@ -31,7 +36,7 @@ class CommentsList extends Component {
                         <li key={comment.id}>
                             <div>
                                 {comment.body} <span>{comment.voteScore}</span>
-                                <span onClick={() => this.handleCommentDelete(comment.id)}>Delete</span>
+                                <span onClick={() => this.props.setConfirmModal({isCommentModalOpen: true, id: this.commentId})}>Delete</span>
                                 <span onClick={() => this.openEditCommentModal(comment)}>Edit</span>
                                 <VoteScoreControls handleVoteScoreChange={(option) => this.handleCommentVoteScoreChange(option, comment.id)} />
                             </div>
@@ -44,15 +49,21 @@ class CommentsList extends Component {
                         <CommentsForm type="edit" onSubmit={this.handleCommentEdit} />
                     </ModalBody>
                 </Modal>
+                <ConfirmModal
+                    handleSubmit={this.handleCommentDelete}
+                    isOpen={this.props.confirmModal.isCommentModalOpen}
+                    action="delete this comment"
+                />
             </div>
         )
     }
 }
 
-function mapStateToProps({ comments }) {
+function mapStateToProps({ comments, confirmModal }) {
     return {
         editCommentModalOpened: comments.editCommentModalOpened,
-        editCommentDraft: comments.editCommentDraft
+        editCommentDraft: comments.editCommentDraft,
+        confirmModal
     }
 }
 
@@ -62,7 +73,8 @@ function mapDispatchToProps(dispatch) {
         editComment: commentObj => dispatch(editComment(commentObj)),
         updateCommentScore: changeScoreCommentObj => dispatch(updateCommentScore(changeScoreCommentObj)),
         toggleEditCommentModal: editCommentModalOpened => dispatch(toggleEditCommentModal(editCommentModalOpened)),
-        setEditCommentDraft: editCommentDraft => dispatch(setEditCommentDraft(editCommentDraft))
+        setEditCommentDraft: editCommentDraft => dispatch(setEditCommentDraft(editCommentDraft)),
+        setConfirmModal: confirmModal => dispatch(setConfirmModal(confirmModal))
     }
 }
 
