@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Button } from 'reactstrap';
 import { toggleEditCommentModal } from './actions';
-import { renderInputField, renderTextareaField, validateRequired } from '../../utils/helpers';
+import { renderInputField, validateRequired } from '../../utils/helpers';
 
 class CommentsForm extends Component {
     submit = values => {

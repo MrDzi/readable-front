@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { SubmissionError } from 'redux-form';
 import CreateEditPostForm from './CreateEditPostForm';
 import { editPost, setCurrentPost } from './actions';
 import { getCategories } from '../categories/actions';
