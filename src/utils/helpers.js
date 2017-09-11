@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const params = {
     headers: {
         'Content-Type': 'application/json',
@@ -31,3 +33,25 @@ export function generateId() {
 }
 
 export const filterDeleted = collection => collection.filter(item => !item.deleted);
+
+export const validateRequired = value => value ? undefined : 'This field is required';
+
+export const renderInputField = ({ input, label, type, meta: { touched, error } }) => (
+    <div>
+        <label>{label}</label>
+        <div>
+            <input {...input} placeholder={label} type={type} />
+            <div>{touched && error && <span>{error}</span>}</div>
+        </div>
+    </div>
+);
+
+export const renderTextareaField = ({ input, label, type, meta: { touched, error } }) => (
+    <div>
+        <label>{label}</label>
+        <div>
+            <textarea {...input} placeholder={label} type={type} />
+            <div>{touched && error && <span>{error}</span>}</div>
+        </div>
+    </div>
+);

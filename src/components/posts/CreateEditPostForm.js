@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
+import { renderInputField, renderTextareaField, validateRequired } from '../../utils/helpers';
 
 let CreateEditPostForm = props => {
     const { handleSubmit, categories, type, history } = props;
@@ -10,16 +11,15 @@ let CreateEditPostForm = props => {
             {type === 'create' &&
                 <div>
                     <label htmlFor="author">Author</label>
-                    <Field name="author" component="input" type="text" />
+                    <Field name="author" component="renderField" type="text" />
                 </div>
             }
             <div>
-                <label htmlFor="title">Title</label>
-                <Field name="title" component="input" type="text" />
+                <Field name="title" component={renderInputField} label="Title" type="text" validate={validateRequired} />
             </div>
             <div>
                 <label htmlFor="body">Body</label>
-                <Field name="body" component="textarea" type="text" />
+                <Field name="body" component={renderTextareaField} type="text" validate={validateRequired} />
             </div>
             {type === 'create' &&
                 <div>

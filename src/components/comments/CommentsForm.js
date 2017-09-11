@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Button } from 'reactstrap';
 import { toggleEditCommentModal } from './actions';
+import { renderInputField, renderTextareaField, validateRequired } from '../../utils/helpers';
 
 class CommentsForm extends Component {
-    submit = (values) => {
+    submit = values => {
         const { handleCommentSubmit, reset } = this.props;
         handleCommentSubmit(values);
         reset();
@@ -13,15 +14,9 @@ class CommentsForm extends Component {
     render() {
         const { handleSubmit, type } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.submit.bind(this))}>
-                <div>
-                    <label htmlFor="author">Author</label>
-                    <Field name="author" component="input" type="text" />
-                </div>
-                <div>
-                    <label htmlFor="body">Body</label>
-                    <Field name="body" component="textarea" type="text" />
-                </div>
+            <form onSubmit={handleSubmit(values => this.submit(values))}>
+                <Field name="author" label="Author" component={renderInputField} type="text" validate={validateRequired} />
+                <Field name="body" label="Comment text" component={renderInputField} type="text" validate={validateRequired} />
                 {type === 'edit' && (
                     <Button onClick={() => this.props.toggleEditCommentModal(false)}>Cancel</Button>
                 )}
