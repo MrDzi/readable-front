@@ -32,8 +32,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getPostsByCategory: (currentCategory) => dispatch(getPostsByCategory(currentCategory)),
-        setCurrentCategory: (currentCategory) => dispatch(setCurrentCategory(currentCategory))
+        getPostsByCategory: currentCategory => dispatch(getPostsByCategory(currentCategory)),
+        setCurrentCategory: currentCategory => dispatch(setCurrentCategory(currentCategory))
     }
 }
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-
-let formType = null;
+import { Button } from 'reactstrap';
+import { toggleEditCommentModal } from './actions';
 
 class CommentsForm extends Component {
     submit = (values) => {
@@ -11,7 +11,7 @@ class CommentsForm extends Component {
         reset();
     }
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, type } = this.props;
         return (
             <form onSubmit={handleSubmit(this.submit.bind(this))}>
                 <div>
@@ -22,22 +22,31 @@ class CommentsForm extends Component {
                     <label htmlFor="body">Body</label>
                     <Field name="body" component="textarea" type="text" />
                 </div>
-                <button type="submit">Submit</button>
+                {type === 'edit' && (
+                    <Button onClick={() => this.props.toggleEditCommentModal(false)}>Cancel</Button>
+                )}
+                <Button type="submit">Submit</Button>
             </form>
         );
     }
 }
 
 function mapStateToProps({ comments }, { type }) {
-    formType = type;
     return {
-        initialValues: type === 'create' ? {} : comments.editCommentDraft
+        type,
+        initialValues: type === 'create' ? {} : comments.editCommentDraft,
+        editCommentModalOpened: comments.editCommentModalOpened
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        toggleEditCommentModal: editCommentModalOpened => dispatch(toggleEditCommentModal(editCommentModalOpened))
     }
 }
 
 CommentsForm = reduxForm({
-    form: `comments-form-${formType}`,
-    reinitialize: true
+    enableReinitialize: true
 })(CommentsForm);
 
-export default connect(mapStateToProps)(CommentsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsForm);

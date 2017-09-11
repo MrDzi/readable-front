@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import CommentsForm from './CommentsForm';
 import ConfirmModal from '../shared/ConfirmModal';
@@ -17,6 +17,7 @@ class CommentsList extends Component {
     }
     handleCommentEdit = values => {
         this.props.editComment(values);
+        this.props.toggleEditCommentModal(false);
     }
     handleCommentVoteScoreChange = (option, commentId) => {
         this.props.updateCommentScore({commentId, option})
@@ -36,7 +37,7 @@ class CommentsList extends Component {
                         <li key={comment.id}>
                             <div>
                                 {comment.body} <span>{comment.voteScore}</span>
-                                <span onClick={() => this.props.setConfirmModal({isCommentModalOpen: true, id: this.commentId})}>Delete</span>
+                            <span onClick={() => this.props.setConfirmModal({isCommentModalOpen: true, id: comment.id})}>Delete</span>
                                 <span onClick={() => this.openEditCommentModal(comment)}>Edit</span>
                                 <VoteScoreControls handleVoteScoreChange={(option) => this.handleCommentVoteScoreChange(option, comment.id)} />
                             </div>
@@ -46,7 +47,7 @@ class CommentsList extends Component {
                 <Modal isOpen={this.props.editCommentModalOpened} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Edit comment</ModalHeader>
                     <ModalBody>
-                        <CommentsForm type="edit" onSubmit={this.handleCommentEdit} />
+                        <CommentsForm form="edit-comment" type="edit" handleCommentSubmit={this.handleCommentEdit} />
                     </ModalBody>
                 </Modal>
                 <ConfirmModal

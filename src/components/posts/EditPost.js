@@ -13,7 +13,7 @@ class EditPost extends Component {
     componentWillMount() {
         this.props.getCategories();
     }
-    handleSubmit = (values) => {
+    handleSubmit = values => {
         this.props.editPost(values);
         this.props.history.push("/");
     }

@@ -21,13 +21,13 @@ class Post extends Component {
         this.props.setCurrentPost(this.postId);
         this.props.getComments(this.postId);
     }
-    handleCommentSubmit = (values) => {
+    handleCommentSubmit = values => {
         const id = generateId(),
               timestamp = Date.now(),
               voteScore = 1;
         this.props.addComment({...values, id, timestamp, voteScore, parentId: this.postId});
     }
-    handlePostVoteScoreChange = (option) => {
+    handlePostVoteScoreChange = option => {
         this.props.updatePostScore({postId: this.postId, option})
     }
     handleDeletePost = () => {
@@ -51,7 +51,7 @@ class Post extends Component {
                 <Link to={`/post-edit/${this.postId}`}>Edit</Link>
                 <SortSelect target="comments" />
                 <CommentsList comments={this.props.comments} />
-                <CommentsForm type="create" onSubmit={this.handleCommentSubmit} handleCommentSubmit={this.handleCommentSubmit} />
+                <CommentsForm form="create-comment" type="create" handleCommentSubmit={this.handleCommentSubmit} />
                 <ConfirmModal
                     handleSubmit={this.handleDeletePost}
                     isOpen={this.props.confirmModal.isPostModalOpen}

@@ -11,8 +11,7 @@ class CreatePost extends Component {
         this.props.getCategories();
         this.props.receiveCurrentPost({});
     }
-    handleSubmit = (values) => {
-        console.log(values);
+    handleSubmit = values => {
         const id = generateId(),
               timestamp = Date.now();
         this.props.addPost({...values, id, timestamp});

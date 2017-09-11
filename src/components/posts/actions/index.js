@@ -36,10 +36,7 @@ export const setPostsSortingOption = postsSortingOption => ({
 });
 
 export const addPost = postObj => dispatch => {
-    return apiAddPost(postObj)
-        .then(postObj => {
-            console.log('action', postObj);
-        })
+    return apiAddPost(postObj);
 };
 
 export const updatePostScore = changePostScoreObj => dispatch => {

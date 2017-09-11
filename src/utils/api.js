@@ -57,65 +57,41 @@ export function fetchComments(postId) {
 }
 
 export function apiAddPost(postObj) {
-    return fetch(`${baseUrl}/posts`, { ...params, method: 'POST', body: JSON.stringify(postObj)})
-        .then(res => {
-            console.log('add post api', res);
-        });
+    return fetch(`${baseUrl}/posts`, { ...params, method: 'POST', body: JSON.stringify(postObj)});
 }
 
 export function apiAddComment(commentObj) {
-    return fetch(`${baseUrl}/comments`, { ...params, method: 'POST', body: JSON.stringify(commentObj)})
-        .then(res => {
-            console.log('add comment api', res);
-        });
+    return fetch(`${baseUrl}/comments`, { ...params, method: 'POST', body: JSON.stringify(commentObj)});
 }
 
 export function apiDeleteComment(commentId) {
-    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'DELETE'})
-        .then(res => {
-            console.log('delete comment');
-        })
+    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'DELETE'});
 }
 
 export function apiUpdatePostScore(changePostScoreObj) {
     const { postId, option } = changePostScoreObj;
     const payload = { option };
-    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'POST', body: JSON.stringify(payload)})
-        .then(res => {
-            console.log('post score api');
-        });
+    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'POST', body: JSON.stringify(payload)});
 }
 
 export function apiDeletePost(postId) {
-    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'DELETE'})
-        .then(res => {
-            console.log('delete comment');
-        })
+    return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'DELETE'});
 }
 
 export function apiUpdateCommentScore(changeCommentScoreObj) {
     const { commentId, option } = changeCommentScoreObj;
     const payload = { option };
-    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'POST', body: JSON.stringify(payload)})
-        .then(res => {
-            console.log('comment score api');
-        });
+    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'POST', body: JSON.stringify(payload)});
 }
 
 export function apiEditPost(editPostObj) {
     const { id, title, body } = editPostObj;
     const payload = { title, body };
-    return fetch(`${baseUrl}/posts/${id}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
-        .then(res => {
-            console.log('edit post');
-        })
+    return fetch(`${baseUrl}/posts/${id}`, {...params, method: 'PUT', body: JSON.stringify(payload)});
 }
 
 export function apiEditComment(commentObj) {
-    const { commentId, title, body } = commentObj;
+    const { id, title, body } = commentObj;
     const payload = { title, body };
-    return fetch(`${baseUrl}/comments/${commentId}`, {...params, method: 'PUT', body: JSON.stringify(payload)})
-        .then(res => {
-            console.log('edit comment');
-        })
+    return fetch(`${baseUrl}/comments/${id}`, {...params, method: 'PUT', body: JSON.stringify(payload)});
 }
