@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input } from 'reactstrap';
 
 export const params = {
     headers: {
@@ -38,20 +39,26 @@ export const validateRequired = value => value ? undefined : 'This field is requ
 
 export const renderInputField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
-        <label>{label}</label>
-        <div>
-            <input {...input} placeholder={label} type={type} />
-            <div>{touched && error && <span>{error}</span>}</div>
-        </div>
+        <Input {...input} placeholder={label} type={type} />
+        <div>{touched && error && <span>{error}</span>}</div>
     </div>
 );
 
 export const renderTextareaField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
-        <label>{label}</label>
-        <div>
-            <textarea {...input} placeholder={label} type={type} />
-            <div>{touched && error && <span>{error}</span>}</div>
-        </div>
+        <Input {...input} placeholder={label} type="textarea" />
+        <div>{touched && error && <span>{error}</span>}</div>
+    </div>
+);
+
+export const renderSelectField = ({ options, input, label, type, meta: { touched, error } }) => (
+    <div>
+        <Input {...input} placeholder={label} type="select">
+            <option value="" disabled>Category</option>
+            {options.map((option) => (
+                <option key={option.name} value={option.name}>{option.name}</option>
+            ))}
+        </Input>
+        <div>{touched && error && <span>{error}</span>}</div>
     </div>
 );

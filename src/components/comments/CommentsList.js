@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Icon } from 'react-fa';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import CommentsForm from './CommentsForm';
 import ConfirmModal from '../shared/ConfirmModal';
@@ -32,14 +33,17 @@ class CommentsList extends Component {
     render() {
         return (
             <div>
-                <ul>
+                <ul className="comments-list u-list-reset-styles">
                     {this.props.comments.map(comment => (
-                        <li key={comment.id}>
-                            <div>
-                                {comment.body} <span>{comment.voteScore}</span>
-                            <span onClick={() => this.props.setConfirmModal({isCommentModalOpen: true, id: comment.id})}>Delete</span>
-                                <span onClick={() => this.openEditCommentModal(comment)}>Edit</span>
+                        <li className="comments-list__item" key={comment.id}>
+                            <div className="comments-list__content">{comment.body}</div>
+                            <span className="comments-list__vote-score">{comment.voteScore}</span>
+                            <div className="actions-block">
                                 <VoteScoreControls handleVoteScoreChange={(option) => this.handleCommentVoteScoreChange(option, comment.id)} />
+                                <div>
+                                    <Icon name="trash" onClick={() => this.props.setConfirmModal({isCommentModalOpen: true, id: comment.id})} />
+                                    <Icon name="pencil" onClick={() => this.openEditCommentModal(comment)} />
+                                </div>
                             </div>
                         </li>
                     ))}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { Col } from 'reactstrap';
+import { Icon } from 'react-fa';
 import CommentsList from '../comments/CommentsList';
 import CommentsForm from '../comments/CommentsForm';
 import SortSelect from '../shared/SortSelect';
@@ -40,24 +42,30 @@ class Post extends Component {
     }
     render() {
         return (
-            <div>
-                <h3>{this.props.currentPost.title}</h3>
-                <div>
-                    <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
-                    <span onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: this.postId})}>Delete</span>
+            <Col xs={{size: 6, offset: 3}}>
+                <div className="post">
+                    <h3 className="post__headline">{this.props.currentPost.title}</h3>
+                    <div className="actions-block">
+                        <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
+                        <div>
+                            <Link className="u-mr-10" to={`/post-edit/${this.postId}`}><Icon name="pencil" /></Link>
+                            <Icon name="trash" onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: this.postId})} />
+                        </div>
+                    </div>
+                    <div className="post__content">{this.props.currentPost.body}</div>
+                    <div className="post__score">Score: {this.props.currentPost.voteScore}</div>
+                    <div className="post__comments">
+                        <SortSelect target="comments" />
+                        <CommentsList comments={this.props.comments} />
+                    </div>
+                    <CommentsForm form="create-comment" type="create" handleCommentSubmit={this.handleCommentSubmit} />
+                    <ConfirmModal
+                        handleSubmit={this.handleDeletePost}
+                        isOpen={this.props.confirmModal.isPostModalOpen}
+                        action="delete this post"
+                    />
                 </div>
-                <div>{this.props.currentPost.body}</div>
-                <div>Score: {this.props.currentPost.voteScore}</div>
-                <Link to={`/post-edit/${this.postId}`}>Edit</Link>
-                <SortSelect target="comments" />
-                <CommentsList comments={this.props.comments} />
-                <CommentsForm form="create-comment" type="create" handleCommentSubmit={this.handleCommentSubmit} />
-                <ConfirmModal
-                    handleSubmit={this.handleDeletePost}
-                    isOpen={this.props.confirmModal.isPostModalOpen}
-                    action="delete this post"
-                />
-            </div>
+            </Col>
         )
     }
 }

@@ -2,39 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
-import { renderInputField, renderTextareaField, validateRequired } from '../../utils/helpers';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { renderInputField, renderTextareaField, renderSelectField, validateRequired } from '../../utils/helpers';
 
 let CreateEditPostForm = props => {
     const { handleSubmit, categories, type, history } = props;
     return (
-        <form onSubmit={handleSubmit}>
+        <Form className="form form--post" onSubmit={handleSubmit}>
             {type === 'create' &&
-                <div>
-                    <label htmlFor="author">Author</label>
+                <FormGroup>
                     <Field name="author" component="renderField" type="text" />
-                </div>
+                </FormGroup>
             }
-            <div>
+            <FormGroup>
                 <Field name="title" component={renderInputField} label="Title" type="text" validate={validateRequired} />
-            </div>
-            <div>
-                <label htmlFor="body">Body</label>
-                <Field name="body" component={renderTextareaField} type="text" validate={validateRequired} />
-            </div>
+            </FormGroup>
+            <FormGroup>
+                <Field name="body" component={renderTextareaField} label="Content" type="text" validate={validateRequired} />
+            </FormGroup>
             {type === 'create' &&
-                <div>
-                    <label htmlFor="category">Category</label>
-                    <Field name="category" component="select">
-                        <option value="" disabled>Category</option>
-                        {categories.map((category) => (
-                            <option key={category.name} value={category.name}>{category.name}</option>
-                        ))}
-                    </Field>
-                </div>
+                <FormGroup>
+                    <Field name="category" label="category" component={renderSelectField} options={categories} />
+                </FormGroup>
             }
-            <button type="submit">Submit</button>
-            <button onClick={history.goBack}>Cancel</button>
-        </form>
+            <Button className="button button--cancel" onClick={history.goBack}>Cancel</Button>
+            <Button className="button button--submit" type="submit">Submit</Button>
+        </Form>
     );
 }
 

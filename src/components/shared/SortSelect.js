@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Form, Input, Label } from 'reactstrap';
 import { setPostsSortingOption } from '../posts/actions';
 import { setCommentsSortingOption } from '../comments/actions';
 
@@ -10,12 +11,14 @@ class SortSelect extends Component {
     }
     render() {
         return (
-            <div>
-                <span>Sort {this.props.target} by:</span>
-                <select onChange={(e) => this.handleSortChange(e.target.value)}>
-                    <option value="voteScore">Vote score</option>
-                    <option value="timestamp">Timestamp</option>
-                </select>
+            <div className="sort-select">
+                <Form inline>
+                    <Label>Sort {this.props.target} by:</Label>
+                    <Input type="select" size="sm" onChange={(e) => this.handleSortChange(e.target.value)}>
+                        <option value="voteScore">Vote score</option>
+                        <option value="timestamp">Timestamp</option>
+                    </Input>
+                </Form>
             </div>
         )
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Icon } from 'react-fa';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import ConfirmModal from '../shared/ConfirmModal';
 import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore } from './actions';
@@ -26,22 +27,26 @@ class PostsList extends Component {
     render() {
         return (
             <div>
-                <ul>
-                    <hr></hr>
+                <ul className="posts-list u-list-reset-styles">
                     {this.props.posts.map(post => (
-                        <li key={post.id}>
-                            <Link to={`/post/${post.id}`}>{post.title}</Link>
-                            <VoteScoreControls handleVoteScoreChange={option => this.handlePostVoteScoreChange(post.id, option)} />
+                        <li className="posts-list__item" key={post.id}>
+                            <h3 className="posts-list__headline">
+                                <Link to={`/post/${post.id}`}>{post.title}</Link>
+                            </h3>
                             <div>
-                                <div>{post.author}</div>
-                                <div>{post.body}</div>
-                                <div>score: {post.voteScore}</div>
-                                <div>{post.timestamp}</div>
-                                <div>comments: {post.commentsCount}</div>
+                                <div className="posts-list__author">{post.author}</div>
+                                <div className="posts-list__content">{post.body}</div>
+                                <div className="posts-list__score">score: {post.voteScore}</div>
+                                <div className="posts-list__time">{post.timestamp}</div>
+                                <div className="posts-list__comments-count">comments: {post.commentsCount}</div>
                             </div>
-                            <span onClick={() => this.handleEditPost(post)}>Edit</span>
-                            <span onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: post.id})}>Delete</span>
-                            <hr></hr>
+                            <div className="actions-block">
+                                <VoteScoreControls handleVoteScoreChange={option => this.handlePostVoteScoreChange(post.id, option)} />
+                                <div>
+                                    <Icon name="pencil" onClick={() => this.handleEditPost(post)} />
+                                    <Icon name="trash" onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: post.id})} />
+                                </div>
+                            </div>
                         </li>
                     ))}
                 </ul>

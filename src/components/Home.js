@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'reactstrap';
 import CategoriesList from './categories/CategoriesList';
 import PostsList from './posts/PostsList';
 import SortSelect from './shared/SortSelect';
@@ -15,12 +16,16 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>
-                <CategoriesList categories={this.props.categories} />
-                <Link to="/post-create">Add New Post</Link>
-                <SortSelect target="posts" />
-                <PostsList posts={this.props.posts} />
-            </div>
+            <Row>
+                <Col xs="9">
+                    <SortSelect target="posts" />
+                    <PostsList posts={this.props.posts} />
+                </Col>
+                <Col xs="3" className="home-sidebar">
+                    <h3>Categories</h3>
+                    <CategoriesList categories={this.props.categories} />
+                </Col>
+            </Row>
         )
     }
 }

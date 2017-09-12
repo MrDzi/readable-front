@@ -16,9 +16,9 @@ class ConfirmModal extends Component {
         return (
             <Modal isOpen={isOpen}>
                 <ModalHeader>Are you sure you want to {action}?</ModalHeader>
-                <ModalFooter>
-                    <Button onClick={this.handleCancel}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Confirm</Button>
+                <ModalFooter className="text-right">
+                    <Button className="button button--cancel" onClick={this.handleCancel}>Cancel</Button>
+                    <Button className="button button--submit" onClick={handleSubmit}>Confirm</Button>
                 </ModalFooter>
             </Modal>
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { Col } from 'reactstrap';
 import PostsList from '../posts/PostsList';
 import SortSelect from '../shared/SortSelect';
 import { getPostsByCategorySelector } from '../../selectors';
@@ -14,12 +15,11 @@ class Category extends Component {
     }
     render() {
         return (
-            <div>
+            <Col xs={{size: 6, offset: 3}}>
                 <h1>{this.props.match.params.currentCategory}</h1>
-                <Link to="/post-create">Add New Post</Link>
                 <SortSelect target="posts" />
                 <PostsList posts={this.props.postsByCategory} />
-            </div>
+            </Col>
         )
     }
 }

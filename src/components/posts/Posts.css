@@ -1,0 +1,15 @@
+/******* Utilities ********/
+.u-list-reset-styles {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+/******* Variables ********/
+/******* Mixins **********/
+.posts-list__item {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 20px; }
+
+.posts-list__headline {
+  font-size: 24px; }

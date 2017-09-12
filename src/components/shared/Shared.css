@@ -112,26 +112,3 @@ a:hover, a:focus, a:visited {
       margin-right: 10px; }
     .actions-block .fa:hover {
       color: #EE5622; }
-
-/******* Utilities ********/
-.u-list-reset-styles {
-  list-style: none;
-  padding: 0;
-  margin: 0; }
-
-/******* Variables ********/
-/******* Mixins **********/
-.posts-list__item {
-  background-color: #fff;
-  margin-bottom: 20px;
-  padding: 20px; }
-
-.posts-list__headline {
-  font-size: 24px; }
-
-.comments-list {
-  margin-bottom: 20px; }
-  .comments-list__item {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 5px; }

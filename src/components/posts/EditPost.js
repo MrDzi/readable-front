@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Col } from 'reactstrap';
 import CreateEditPostForm from './CreateEditPostForm';
 import { editPost, setCurrentPost } from './actions';
 import { getCategories } from '../categories/actions';
@@ -19,10 +20,10 @@ class EditPost extends Component {
     }
     render() {
         return (
-            <div>
+            <Col xs={{size: 6, offset: 3}}>
                 <h1>Edit Post</h1>
                 <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} type="edit" />
-            </div>
+            </Col>
         )
     }
 }
