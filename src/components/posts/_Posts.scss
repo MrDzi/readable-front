@@ -1,0 +1,24 @@
+.post {
+    background-color: #fff;
+    margin-bottom: 50px;
+    padding: 20px;
+    &__headline {
+        font-size: 22px;
+    }
+    &__info {
+        font-size: 13px;
+        color: $gray-dark;
+        margin-bottom: 20px;
+        @include flex();
+        justify-content: space-between;
+    }
+    &__content {
+        margin-bottom: 30px;
+    }
+}
+
+.posts-list {
+    &__item {
+        margin-bottom: 20px;
+    }
+}

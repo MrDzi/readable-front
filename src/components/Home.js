@@ -22,7 +22,6 @@ class Home extends Component {
                     <PostsList posts={this.props.posts} />
                 </Col>
                 <Col xs="3" className="home-sidebar">
-                    <h3>Categories</h3>
                     <CategoriesList categories={this.props.categories} />
                 </Col>
             </Row>

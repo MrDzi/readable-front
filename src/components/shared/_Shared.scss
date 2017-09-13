@@ -1,41 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
-
-/******* Utilities ********/
-.u-list-reset-styles {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.u-mr-10 {
-    margin-right: 10px;
-}
-
-/******* Variables ********/
-$black: #221E22;
-$yellow: #ECA72C;
-$orange: #EE5622;
-
-/******* Mixins **********/
-@mixin flex() {
-    display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-}
-
-@mixin transition() {
-	-webkit-transition: arguments;
-	-moz-transition: arguments;
-	transition: arguments;
-}
-
 body {
     font-family: 'Lato', sans-serif;
     font-size: 15px;
     color: $black;
-    background-color: #f4f4f4 !important;
+    background-color: $gray-light !important;
 }
 
 h1, h2, h3, h4 {
@@ -48,6 +15,11 @@ h1, h2, h3, h4 {
             color: darken($orange, 5%);
         }
     }
+}
+
+h1:not(.logo) {
+    font-size: 36px !important;
+    margin-bottom: 30px !important;
 }
 
 a:hover, a:focus, a:visited {
@@ -86,6 +58,32 @@ a:hover, a:focus, a:visited {
         }
         .fa {
             margin-right: 5px;
+        }
+    }
+}
+
+.home-sidebar {
+    padding-top: 40px;
+    h3 {
+        font-size: 18px;
+        color: $gray-dark;
+        margin-bottom: 15px;
+    }
+    li {
+        padding-left: 13px;
+        margin-bottom: 10px;
+        border-left: 3px solid $gray;
+        @include transition(all .15s ease-in);
+        &:hover {
+            border-left: 6px solid $orange;
+            a {
+                color: $orange;
+            }
+        }
+        a {
+            display: block;
+            color: $black;
+            @include transition(color .1s ease-in);
         }
     }
 }
@@ -155,6 +153,7 @@ a:hover, a:focus, a:visited {
     .fa {
         color: $black;
         cursor: pointer;
+        @include transition(color .1s ease-in);
         &:not(:last-of-type) {
             margin-right: 10px;
         }
@@ -162,4 +161,13 @@ a:hover, a:focus, a:visited {
             color: $orange;
         }
     }
+}
+
+.error-message {
+    font-size: 13px;
+    color: $orange;
+}
+
+.modal-title {
+    font-size: 20px;
 }

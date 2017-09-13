@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { Col } from 'reactstrap';
 import { Icon } from 'react-fa';
+import TimeAgo from 'react-timeago';
 import CommentsList from '../comments/CommentsList';
 import CommentsForm from '../comments/CommentsForm';
 import SortSelect from '../shared/SortSelect';
@@ -41,19 +42,31 @@ class Post extends Component {
         this.props.history.push("/");
     }
     render() {
+        const { currentPost } = this.props;
         return (
             <Col xs={{size: 6, offset: 3}}>
-                <div className="post">
-                    <h3 className="post__headline">{this.props.currentPost.title}</h3>
-                    <div className="actions-block">
-                        <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
+                <div>
+                    <div className="post">
+                        <h3 className="post__headline">{currentPost.title}</h3>
                         <div>
-                            <Link className="u-mr-10" to={`/post-edit/${this.postId}`}><Icon name="pencil" /></Link>
-                            <Icon name="trash" onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: this.postId})} />
+                            <div className="post__info">
+                                <div>
+                                    Written <strong><TimeAgo date={currentPost.timestamp} live={false} /></strong> by <strong>{currentPost.author}</strong>
+                                </div>
+                                <div>
+                                    <strong>{currentPost.commentsCount}</strong> Comments, Score <strong>{currentPost.voteScore}</strong>
+                                </div>
+                            </div>
+                            <div className="post__content">{currentPost.body}</div>
+                        </div>
+                        <div className="actions-block">
+                            <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
+                            <div>
+                                <Link className="u-mr-10" to={`/post-edit/${this.postId}`}><Icon name="pencil" /></Link>
+                                <Icon name="trash" onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: this.postId})} />
+                            </div>
                         </div>
                     </div>
-                    <div className="post__content">{this.props.currentPost.body}</div>
-                    <div className="post__score">Score: {this.props.currentPost.voteScore}</div>
                     <div className="post__comments">
                         <SortSelect target="comments" />
                         <CommentsList comments={this.props.comments} />

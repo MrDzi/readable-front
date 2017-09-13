@@ -1,0 +1,33 @@
+/******* Variables ********/
+$black: #221E22;
+$yellow: #ECA72C;
+$orange: #EE5622;
+$gray: #dedede;
+$gray-light: #f4f4f4;
+$gray-dark: #aeaeae;
+
+/******* Mixins **********/
+@mixin flex() {
+    display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+@mixin transition($arguments) {
+	-webkit-transition: $arguments;
+	-moz-transition: $arguments;
+	transition: $arguments;
+}
+
+/******* Utilities ********/
+.u-list-reset-styles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.u-mr-10 {
+    margin-right: 10px;
+}

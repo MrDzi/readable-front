@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Icon } from 'react-fa';
+import TimeAgo from 'react-timeago';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import ConfirmModal from '../shared/ConfirmModal';
 import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore } from './actions';
@@ -29,16 +30,20 @@ class PostsList extends Component {
             <div>
                 <ul className="posts-list u-list-reset-styles">
                     {this.props.posts.map(post => (
-                        <li className="posts-list__item" key={post.id}>
-                            <h3 className="posts-list__headline">
+                        <li className="post" key={post.id}>
+                            <h3 className="post__headline">
                                 <Link to={`/post/${post.id}`}>{post.title}</Link>
                             </h3>
                             <div>
-                                <div className="posts-list__author">{post.author}</div>
-                                <div className="posts-list__content">{post.body}</div>
-                                <div className="posts-list__score">score: {post.voteScore}</div>
-                                <div className="posts-list__time">{post.timestamp}</div>
-                                <div className="posts-list__comments-count">comments: {post.commentsCount}</div>
+                                <div className="post__info">
+                                    <div>
+                                        Written <strong><TimeAgo date={post.timestamp} live={false} /></strong> by <strong>{post.author}</strong>
+                                    </div>
+                                    <div>
+                                        <strong>{post.commentsCount}</strong> Comments, Score <strong>{post.voteScore}</strong>
+                                    </div>
+                                </div>
+                                <div className="post__content">{post.body}</div>
                             </div>
                             <div className="actions-block">
                                 <VoteScoreControls handleVoteScoreChange={option => this.handlePostVoteScoreChange(post.id, option)} />

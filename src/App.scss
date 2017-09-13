@@ -1,4 +1,8 @@
-@import './components/shared/Shared.scss';
-@import './components/categories/Categories.scss';
-@import './components/posts/Posts.scss';
-@import './components/comments/Comments.scss';
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+@import './utils/Utilities';
+
+@import './components/shared/Shared';
+@import './components/categories/Categories';
+@import './components/posts/Posts';
+@import './components/comments/Comments';

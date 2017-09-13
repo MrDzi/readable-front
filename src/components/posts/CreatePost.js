@@ -21,7 +21,7 @@ class CreatePost extends Component {
     render() {
         return (
             <Col xs={{size: 6, offset: 3}}>
-                <h1>Create Post</h1>
+                <h1>Create New Post</h1>
                 <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} type="create" />
             </Col>
         );

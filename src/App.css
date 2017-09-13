@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700");
+/******* Variables ********/
+/******* Mixins **********/
 /******* Utilities ********/
 .u-list-reset-styles {
   list-style: none;
@@ -8,8 +10,6 @@
 .u-mr-10 {
   margin-right: 10px; }
 
-/******* Variables ********/
-/******* Mixins **********/
 body {
   font-family: 'Lato', sans-serif;
   font-size: 15px;
@@ -24,6 +24,10 @@ h1, h2, h3, h4 {
     color: #EE5622; }
     h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover {
       color: #e54712; }
+
+h1:not(.logo) {
+  font-size: 36px !important;
+  margin-bottom: 30px !important; }
 
 a:hover, a:focus, a:visited {
   text-decoration: none !important; }
@@ -63,6 +67,30 @@ a:hover, a:focus, a:visited {
       padding: 11px 15px; }
     .header .button .fa {
       margin-right: 5px; }
+
+.home-sidebar {
+  padding-top: 40px; }
+  .home-sidebar h3 {
+    font-size: 18px;
+    color: #aeaeae;
+    margin-bottom: 15px; }
+  .home-sidebar li {
+    padding-left: 13px;
+    margin-bottom: 10px;
+    border-left: 3px solid #dedede;
+    -webkit-transition: all 0.15s ease-in;
+    -moz-transition: all 0.15s ease-in;
+    transition: all 0.15s ease-in; }
+    .home-sidebar li:hover {
+      border-left: 6px solid #EE5622; }
+      .home-sidebar li:hover a {
+        color: #EE5622; }
+    .home-sidebar li a {
+      display: block;
+      color: #221E22;
+      -webkit-transition: color 0.1s ease-in;
+      -moz-transition: color 0.1s ease-in;
+      transition: color 0.1s ease-in; }
 
 .form-control {
   border-radius: 2px !important; }
@@ -107,27 +135,43 @@ a:hover, a:focus, a:visited {
   justify-content: space-between; }
   .actions-block .fa {
     color: #221E22;
-    cursor: pointer; }
+    cursor: pointer;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in; }
     .actions-block .fa:not(:last-of-type) {
       margin-right: 10px; }
     .actions-block .fa:hover {
       color: #EE5622; }
 
-/******* Utilities ********/
-.u-list-reset-styles {
-  list-style: none;
-  padding: 0;
-  margin: 0; }
+.error-message {
+  font-size: 13px;
+  color: #EE5622; }
 
-/******* Variables ********/
-/******* Mixins **********/
-.posts-list__item {
+.modal-title {
+  font-size: 20px; }
+
+.post {
   background-color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   padding: 20px; }
+  .post__headline {
+    font-size: 22px; }
+  .post__info {
+    font-size: 13px;
+    color: #aeaeae;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between; }
+  .post__content {
+    margin-bottom: 30px; }
 
-.posts-list__headline {
-  font-size: 24px; }
+.posts-list__item {
+  margin-bottom: 20px; }
 
 .comments-list {
   margin-bottom: 20px; }
@@ -135,3 +179,6 @@ a:hover, a:focus, a:visited {
     background-color: #fff;
     padding: 10px;
     margin-bottom: 5px; }
+  .comments-list__vote-score {
+    font-size: 13px;
+    color: #aeaeae; }

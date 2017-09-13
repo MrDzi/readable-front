@@ -11,7 +11,7 @@ let CreateEditPostForm = props => {
         <Form className="form form--post" onSubmit={handleSubmit}>
             {type === 'create' &&
                 <FormGroup>
-                    <Field name="author" component="renderField" type="text" />
+                    <Field name="author" component={renderInputField} label="Author" type="text" validate={validateRequired} />
                 </FormGroup>
             }
             <FormGroup>

@@ -5,13 +5,8 @@
         padding: 10px;
         margin-bottom: 5px;
     }
-    &__content {
-
-    }
     &__vote-score {
-
-    }
-    &__actions {
-
+        font-size: 13px;
+        color: $gray-dark;
     }
 }

@@ -6,7 +6,7 @@ import { Icon } from 'react-fa';
 const Header = function() {
     return (
         <div className="header">
-            <h1><Link to="/">Readable</Link></h1>
+            <h1 className="logo"><Link to="/">Readable</Link></h1>
             <Button className="button button--submit"><Link to="/post-create"><Icon name="plus-circle" />Add new post</Link></Button>
         </div>
     );
