@@ -13,6 +13,7 @@ export const receiveCategories = categories => ({
 
 export const getCategories = () => (dispatch, getState) => {
     const state = getState();
+    // if there are already cached categories return them instead of the new api request. Otherwise get them from api (if user directly comes to category page i.e. by typing URL)
     return state.categories && state.categories.categories.length ? state.categories.categories : fetchCategories()
         .then(categories => dispatch(receiveCategories(categories)))
 };

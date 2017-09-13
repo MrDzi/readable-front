@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import CategoriesList from './categories/CategoriesList';
 import PostsList from './posts/PostsList';
@@ -15,14 +14,17 @@ class Home extends Component {
         this.props.getPosts();
     }
     render() {
+        const { posts, categories } = this.props;
         return (
             <Row>
                 <Col xs="9">
-                    <SortSelect target="posts" />
-                    <PostsList posts={this.props.posts} />
+                    {posts.length > 0 && (
+                        <SortSelect target="posts" />
+                    )}
+                    <PostsList posts={posts} />
                 </Col>
                 <Col xs="3" className="home-sidebar">
-                    <CategoriesList categories={this.props.categories} />
+                    <CategoriesList categories={categories} />
                 </Col>
             </Row>
         )

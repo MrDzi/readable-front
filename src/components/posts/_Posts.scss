@@ -1,5 +1,6 @@
 .post {
     background-color: #fff;
+    border: 1px solid $yellow;
     margin-bottom: 50px;
     padding: 20px;
     &__headline {
@@ -19,6 +20,7 @@
 
 .posts-list {
     &__item {
+        border: none;
         margin-bottom: 20px;
     }
 }

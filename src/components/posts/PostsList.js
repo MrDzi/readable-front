@@ -26,40 +26,53 @@ class PostsList extends Component {
         });
     }
     render() {
+        const { posts, confirmModal, setConfirmModal } = this.props;
         return (
             <div>
-                <ul className="posts-list u-list-reset-styles">
-                    {this.props.posts.map(post => (
-                        <li className="post" key={post.id}>
-                            <h3 className="post__headline">
-                                <Link to={`/post/${post.id}`}>{post.title}</Link>
-                            </h3>
-                            <div>
-                                <div className="post__info">
+                {posts.length ? (
+                    <div>
+                        <ul className="posts-list u-list-reset-styles">
+                            {posts.map(post => (
+                                <li className="posts-list__item post" key={post.id}>
+                                    <h3 className="post__headline">
+                                        <Link to={`/post/${post.id}`}>{post.title}</Link>
+                                    </h3>
                                     <div>
-                                        Written <strong><TimeAgo date={post.timestamp} live={false} /></strong> by <strong>{post.author}</strong>
+                                        <div className="post__info">
+                                            <div>
+                                                Written <strong><TimeAgo date={post.timestamp} live={false} /></strong> by <strong>{post.author}</strong>
+                                            </div>
+                                            <div>
+                                                <strong>{post.commentsCount}</strong> Comments, Score <strong>{post.voteScore}</strong>
+                                            </div>
+                                        </div>
+                                        <div className="post__content">
+                                            {post.body.length > 100 ? (
+                                                post.body.substring(0, 100) + '...'
+                                            ) : (
+                                                post.body
+                                            )}
+                                        </div>
                                     </div>
-                                    <div>
-                                        <strong>{post.commentsCount}</strong> Comments, Score <strong>{post.voteScore}</strong>
+                                    <div className="actions-block">
+                                        <VoteScoreControls handleVoteScoreChange={option => this.handlePostVoteScoreChange(post.id, option)} />
+                                        <div>
+                                            <Icon name="pencil" onClick={() => this.handleEditPost(post)} />
+                                            <Icon name="trash" onClick={() => setConfirmModal({isPostModalOpen: true, id: post.id})} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="post__content">{post.body}</div>
-                            </div>
-                            <div className="actions-block">
-                                <VoteScoreControls handleVoteScoreChange={option => this.handlePostVoteScoreChange(post.id, option)} />
-                                <div>
-                                    <Icon name="pencil" onClick={() => this.handleEditPost(post)} />
-                                    <Icon name="trash" onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: post.id})} />
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                <ConfirmModal
-                    handleSubmit={this.handleDeletePost}
-                    isOpen={this.props.confirmModal.isPostModalOpen}
-                    action="delete this post"
-                />
+                                </li>
+                            ))}
+                        </ul>
+                        <ConfirmModal
+                            handleSubmit={this.handleDeletePost}
+                            isOpen={confirmModal.isPostModalOpen}
+                            action="delete this post"
+                        />
+                    </div>
+                ) : (
+                    <div>There is no posts to show.</div>
+                )}
             </div>
         )
     }

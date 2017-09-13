@@ -12,6 +12,7 @@ export function fetchPosts() {
     return fetch(`${baseUrl}/posts`, params)
         .then(res => res.json())
         .then(posts => {
+            // get comments for each post (for displaying comments count)
             let promiseList = [];
             for (let post of posts) {
                 promiseList.push(

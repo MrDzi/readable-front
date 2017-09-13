@@ -80,5 +80,6 @@ export default function comments(state = commentsInitialState, action) {
     }
 }
 
+// used in selectors
 export const getCommentsFromState = (state) => state.comments.comments;
 export const getCommentsSortingOptionFromState = (state) => state.comments.commentsSortingOption;

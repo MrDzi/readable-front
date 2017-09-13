@@ -65,5 +65,6 @@ export default function posts(state = postsInitialState, action) {
     }
 }
 
+// used in selectors
 export const getPostsFromState = (state) => state.posts.posts;
 export const getPostsSortingOptionFromState = (state) => state.posts.postsSortingOption;

@@ -20,6 +20,7 @@ export default function categories(state = categoriesInitialState, action) {
                 currentCategory
             }
         case RECEIVE_POSTS_BY_CATEGORY:
+            // keep only ids of posts by category as a refference
             return {
                 ...state,
                 postsIdsByCategory
@@ -29,4 +30,5 @@ export default function categories(state = categoriesInitialState, action) {
     }
 }
 
+// used in selector
 export const getPostsIdsByCategoryFromState = (state) => state.categories.postsIdsByCategory;

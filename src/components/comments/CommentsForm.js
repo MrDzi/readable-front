@@ -5,6 +5,7 @@ import { Button, Form, FormGroup } from 'reactstrap';
 import { toggleEditCommentModal } from './actions';
 import { renderInputField, renderTextareaField, validateRequired } from '../../utils/helpers';
 
+// Reusable form component used for both create and edit comment
 class CommentsForm extends Component {
     submit = values => {
         const { handleCommentSubmit, reset } = this.props;
@@ -15,6 +16,9 @@ class CommentsForm extends Component {
         const { handleSubmit, type } = this.props;
         return (
             <Form className="form form--comment" onSubmit={handleSubmit(values => this.submit(values))}>
+                {type === 'create' && (
+                    <div className="u-mb-10 u-text-light">Add comment</div>
+                )}
                 <FormGroup>
                     <Field name="author" label="Author" component={renderInputField} type="text" validate={validateRequired} />
                 </FormGroup>
@@ -35,6 +39,7 @@ class CommentsForm extends Component {
 function mapStateToProps({ comments }, { type }) {
     return {
         type,
+        // setting different initial values for create or edit comment
         initialValues: type === 'create' ? {} : comments.editCommentDraft,
         editCommentModalOpened: comments.editCommentModalOpened
     }

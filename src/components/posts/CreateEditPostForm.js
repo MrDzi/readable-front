@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Button } from 'reactstrap';
 import { renderInputField, renderTextareaField, renderSelectField, validateRequired } from '../../utils/helpers';
 
+// Reusable form component used for both create and edit posts
 let CreateEditPostForm = props => {
     const { handleSubmit, categories, type, history } = props;
     return (

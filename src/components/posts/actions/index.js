@@ -26,6 +26,7 @@ export const receiveCurrentPost = currentPost => ({
 
 export const setCurrentPost = postId => (dispatch, getState) => {
     const { posts } = getState();
+    // if the post is already cached in the collection, return it rather than making new request
     return posts.posts[postId] ? dispatch(receiveCurrentPost(posts.posts[postId])) : fetchPost(postId)
         .then(post => dispatch(receiveCurrentPost(post)));
 };

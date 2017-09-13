@@ -72,5 +72,5 @@ export const toggleEditCommentModal = editCommentModalOpened => ({
 
 export const setEditCommentDraft = editCommentDraft => ({
     type: SET_EDIT_COMMENT_DRAFT,
-    editCommentDraft
+    editCommentDraft // used as initial values in the form
 });

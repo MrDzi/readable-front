@@ -9,6 +9,7 @@ export const params = {
     }
 }
 
+// transform collection (array of objects) into one object with ids as keys
 export const normalize = (collection) => {
     let normalizedData = {};
     collection.forEach(item => {
@@ -17,8 +18,10 @@ export const normalize = (collection) => {
     return normalizedData;
 }
 
+// reverse normalizing
 export const unNormalize = (obj) => Object.values(obj);
 
+// get ids from collection
 export const mapToIds = (collection) => {
     return collection.map(item => item.id);
 }
@@ -35,6 +38,7 @@ export function generateId() {
 
 export const filterDeleted = collection => collection.filter(item => !item.deleted);
 
+// methods used for forms
 export const validateRequired = value => value ? undefined : 'This field is required';
 
 export const renderInputField = ({ input, label, type, meta: { touched, error } }) => (

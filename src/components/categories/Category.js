@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Col } from 'reactstrap';
 import PostsList from '../posts/PostsList';
 import SortSelect from '../shared/SortSelect';
@@ -17,7 +17,9 @@ class Category extends Component {
         return (
             <Col xs={{size: 6, offset: 3}}>
                 <h1>{this.props.match.params.currentCategory}</h1>
-                <SortSelect target="posts" />
+                {this.props.postsByCategory.length > 0 && (
+                    <SortSelect target="posts" />
+                )}
                 <PostsList posts={this.props.postsByCategory} />
             </Col>
         )

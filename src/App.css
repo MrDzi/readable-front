@@ -10,6 +10,12 @@
 .u-mr-10 {
   margin-right: 10px; }
 
+.u-mb-10 {
+  margin-bottom: 10px; }
+
+.u-text-light {
+  color: #aeaeae; }
+
 body {
   font-family: 'Lato', sans-serif;
   font-size: 15px;
@@ -92,6 +98,9 @@ a:hover, a:focus, a:visited {
       -moz-transition: color 0.1s ease-in;
       transition: color 0.1s ease-in; }
 
+.form--post textarea {
+  min-height: 200px; }
+
 .form-control {
   border-radius: 2px !important; }
 
@@ -153,6 +162,7 @@ a:hover, a:focus, a:visited {
 
 .post {
   background-color: #fff;
+  border: 1px solid #ECA72C;
   margin-bottom: 50px;
   padding: 20px; }
   .post__headline {
@@ -171,6 +181,7 @@ a:hover, a:focus, a:visited {
     margin-bottom: 30px; }
 
 .posts-list__item {
+  border: none;
   margin-bottom: 20px; }
 
 .comments-list {

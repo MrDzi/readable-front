@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
 import { setConfirmModal } from '../../Actions';
 
+// Reusable confirm modal component used for both posts and comments. Stores post/comment id in the state.
 class ConfirmModal extends Component {
     handleCancel = () => {
         this.props.setConfirmModal({

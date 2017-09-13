@@ -37,7 +37,7 @@ class CommentsList extends Component {
                     {this.props.comments.map(comment => (
                         <li className="comments-list__item" key={comment.id}>
                             <div className="comments-list__content">{comment.body}</div>
-                            <span className="comments-list__vote-score">Score: <strong>{comment.voteScore}</strong></span>
+                            <span className="comments-list__vote-score"><strong>{comment.author}</strong>, Score: <strong>{comment.voteScore}</strong></span>
                             <div className="actions-block">
                                 <VoteScoreControls handleVoteScoreChange={(option) => this.handleCommentVoteScoreChange(option, comment.id)} />
                                 <div>

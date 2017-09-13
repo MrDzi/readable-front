@@ -89,11 +89,10 @@ a:hover, a:focus, a:visited {
 }
 
 .form {
-    &__post {
-
-    }
-    &__comment {
-
+    &--post {
+        textarea {
+            min-height: 200px;
+        }
     }
 }
 

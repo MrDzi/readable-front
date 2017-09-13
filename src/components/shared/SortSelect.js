@@ -4,6 +4,7 @@ import { Form, Input, Label } from 'reactstrap';
 import { setPostsSortingOption } from '../posts/actions';
 import { setCommentsSortingOption } from '../comments/actions';
 
+// Component used for sorting posts/comments
 class SortSelect extends Component {
     handleSortChange(value) {
         this.props.target === 'posts' && this.props.setPostsSortingOption(value);

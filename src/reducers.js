@@ -23,6 +23,7 @@ function confirmModal(state = confirmModalInitialState, action) {
     }
 }
 
+// combine all reducers
 export default combineReducers({
     categories,
     posts,

@@ -15,6 +15,7 @@ import { setCurrentPost, updatePostScore, deletePost } from './actions';
 import { getComments, addComment } from '../comments/actions';
 import { generateId } from '../../utils/helpers';
 
+// Wrapper component for single post page
 class Post extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +43,7 @@ class Post extends Component {
         this.props.history.push("/");
     }
     render() {
-        const { currentPost } = this.props;
+        const { currentPost, setConfirmModal } = this.props;
         return (
             <Col xs={{size: 6, offset: 3}}>
                 <div>
@@ -63,7 +64,7 @@ class Post extends Component {
                             <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
                             <div>
                                 <Link className="u-mr-10" to={`/post-edit/${this.postId}`}><Icon name="pencil" /></Link>
-                                <Icon name="trash" onClick={() => this.props.setConfirmModal({isPostModalOpen: true, id: this.postId})} />
+                                <Icon name="trash" onClick={() => setConfirmModal({isPostModalOpen: true, id: this.postId})} />
                             </div>
                         </div>
                     </div>
