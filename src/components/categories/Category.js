@@ -13,6 +13,17 @@ class Category extends Component {
         this.props.setCurrentCategory(currentCategory);
         this.props.getPostsByCategory(currentCategory);
     }
+    componentWillReceiveProps(nextProps, a, d) {
+        const currentCategory = this.props.match.params.currentCategory,
+              newCategory = nextProps.match.params.currentCategory;
+        if (newCategory !== currentCategory) {
+            this.props.setCurrentCategory(newCategory);
+            this.props.getPostsByCategory(newCategory);
+        }
+    }
+    componentWillUnmount() {
+        this.props.setCurrentCategory('');
+    }
     render() {
         return (
             <Col xs={{size: 6, offset: 3}}>

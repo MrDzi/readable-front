@@ -1,5 +1,16 @@
 .categories-list {
+    @include flex();
+    margin-right: 15px;
     &__item {
-        
+        a {
+            display: block;
+            padding: 9px 13px;
+            color: $black;
+            cursor: pointer;
+            @include transition(color .1s ease-in);
+            &:hover {
+                color: $orange;
+            }
+        }
     }
 }

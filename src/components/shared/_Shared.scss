@@ -28,7 +28,6 @@ a:hover, a:focus, a:visited {
 
 .app-content {
     padding: 50px 0;
-    // background-color: #fff;
 }
 
 .header {
@@ -37,6 +36,10 @@ a:hover, a:focus, a:visited {
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
+    &__links {
+        @include flex();
+        align-items: center;
+    }
     h1 {
         line-height: 1;
         margin: 0;

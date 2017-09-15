@@ -5,7 +5,7 @@ import { Icon } from 'react-fa';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import CommentsForm from './CommentsForm';
 import ConfirmModal from '../shared/ConfirmModal';
-import { setConfirmModal } from '../../Actions';
+import { setConfirmModal } from '../../actions';
 import { deleteComment, updateCommentScore, editComment, toggleEditCommentModal, setEditCommentDraft } from './actions';
 
 class CommentsList extends Component {

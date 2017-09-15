@@ -3,7 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import categories from './components/categories/reducers';
 import posts from './components/posts/reducers';
 import comments from './components/comments/reducers';
-import { SET_CONFIRM_MODAL } from './Actions';
+import { SET_CONFIRM_MODAL } from './actions';
 
 const confirmModalInitialState = {
     isOpen: false,

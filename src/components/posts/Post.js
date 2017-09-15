@@ -9,7 +9,7 @@ import CommentsForm from '../comments/CommentsForm';
 import SortSelect from '../shared/SortSelect';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import ConfirmModal from '../shared/ConfirmModal';
-import { setConfirmModal } from '../../Actions';
+import { setConfirmModal } from '../../actions';
 import { getCommentsSelector } from '../../selectors';
 import { setCurrentPost, updatePostScore, deletePost } from './actions';
 import { getComments, addComment } from '../comments/actions';

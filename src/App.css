@@ -16,6 +16,9 @@
 .u-text-light {
   color: #aeaeae; }
 
+.u-orange {
+  color: #EE5622 !important; }
+
 body {
   font-family: 'Lato', sans-serif;
   font-size: 15px;
@@ -51,6 +54,13 @@ a:hover, a:focus, a:visited {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px; }
+  .header__links {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center; }
   .header h1 {
     line-height: 1;
     margin: 0; }
@@ -159,6 +169,24 @@ a:hover, a:focus, a:visited {
 
 .modal-title {
   font-size: 20px; }
+
+.categories-list {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin-right: 15px; }
+  .categories-list__item a {
+    display: block;
+    padding: 9px 13px;
+    color: #221E22;
+    cursor: pointer;
+    -webkit-transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+    transition: color 0.1s ease-in; }
+    .categories-list__item a:hover {
+      color: #EE5622; }
 
 .post {
   background-color: #fff;

@@ -7,7 +7,7 @@ import TimeAgo from 'react-timeago';
 import VoteScoreControls from '../shared/VoteScoreControls';
 import ConfirmModal from '../shared/ConfirmModal';
 import { receiveCurrentPost, setCurrentPost, deletePost, updatePostScore } from './actions';
-import { setConfirmModal } from '../../Actions';
+import { setConfirmModal } from '../../actions';
 
 class PostsList extends Component {
     handlePostVoteScoreChange = (postId, option) => {
@@ -71,7 +71,7 @@ class PostsList extends Component {
                         />
                     </div>
                 ) : (
-                    <div>There is no posts to show.</div>
+                    <div>There are no posts to show.</div>
                 )}
             </div>
         )

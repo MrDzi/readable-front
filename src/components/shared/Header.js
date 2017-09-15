@@ -1,15 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { Icon } from 'react-fa';
+import CategoriesList from '../categories/CategoriesList';
+import { getCategories } from '../categories/actions';
 
-const Header = function() {
-    return (
-        <div className="header">
-            <h1 className="logo"><Link to="/">Readable</Link></h1>
-            <Button className="button button--submit"><Link to="/post-create"><Icon name="plus-circle" />Add new post</Link></Button>
-        </div>
-    );
+class Header extends Component {
+    componentWillMount() {
+        this.props.getCategories();
+    }
+    render() {
+        const { categories, currentCategory } = this.props;
+        return (
+            <div className="header">
+                <h1 className="logo"><Link to="/">Readable</Link></h1>
+                <div className="header__links">
+                    <CategoriesList categories={categories} currentCategory={currentCategory} />
+                    <Button className="button button--submit"><Link to="/post-create"><Icon name="plus-circle" />Add new post</Link></Button>
+                </div>
+            </div>
+        );
+    }
 }
 
-export default Header;
+function mapStateToProps(state) {
+    const { categories, currentCategory } = state.categories;
+    return {
+        categories,
+        currentCategory
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getCategories: () => dispatch(getCategories())
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
