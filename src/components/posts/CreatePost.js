@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { addPost, receiveCurrentPost } from './actions';
 import { getCategories } from '../categories/actions';
 import { generateId } from '../../utils/helpers';
@@ -20,10 +20,12 @@ class CreatePost extends Component {
     }
     render() {
         return (
-            <Col xs={{size: 6, offset: 3}}>
-                <h1>Create New Post</h1>
-                <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} type="create" />
-            </Col>
+            <Row className="justify-content-center">
+                <Col xs="6">
+                    <h1>Create New Post</h1>
+                    <CreateEditPostForm onSubmit={this.handleSubmit} categories={this.props.categories.categories} type="create" />
+                </Col>
+            </Row>
         );
     }
 }

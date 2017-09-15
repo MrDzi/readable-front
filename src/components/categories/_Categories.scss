@@ -9,7 +9,7 @@
             cursor: pointer;
             @include transition(color .1s ease-in);
             &:hover {
-                color: $orange;
+                color: $orange !important;
             }
         }
     }

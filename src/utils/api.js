@@ -76,7 +76,6 @@ export function apiUpdatePostScore(changePostScoreObj) {
 }
 
 export function apiDeletePost(postId) {
-    debugger;
     return fetch(`${baseUrl}/posts/${postId}`, {...params, method: 'DELETE'});
 }
 

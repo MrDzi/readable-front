@@ -186,7 +186,7 @@ a:hover, a:focus, a:visited {
     -moz-transition: color 0.1s ease-in;
     transition: color 0.1s ease-in; }
     .categories-list__item a:hover {
-      color: #EE5622; }
+      color: #EE5622 !important; }
 
 .post {
   background-color: #fff;

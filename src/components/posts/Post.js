@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Icon } from 'react-fa';
 import TimeAgo from 'react-timeago';
 import CommentsList from '../comments/CommentsList';
@@ -45,41 +45,50 @@ class Post extends Component {
     render() {
         const { currentPost, setConfirmModal } = this.props;
         return (
-            <Col xs={{size: 6, offset: 3}}>
-                <div>
-                    <div className="post">
-                        <h3 className="post__headline">{currentPost.title}</h3>
+            <Row className="justify-content-center">
+                <Col xs="6">
+                    {Object.values(currentPost).length ? (
                         <div>
-                            <div className="post__info">
+                            <div className="post">
+                                <h3 className="post__headline">{currentPost.title}</h3>
                                 <div>
-                                    Written <strong><TimeAgo date={currentPost.timestamp} live={false} /></strong> by <strong>{currentPost.author}</strong>
+                                    <div className="post__info">
+                                        <div>
+                                            Written <strong><TimeAgo date={currentPost.timestamp} live={false} /></strong> by <strong>{currentPost.author}</strong>
+                                        </div>
+                                        <div>
+                                            <strong>{currentPost.commentsCount}</strong> Comments, Score <strong>{currentPost.voteScore}</strong>
+                                        </div>
+                                    </div>
+                                    <div className="post__content">{currentPost.body}</div>
                                 </div>
-                                <div>
-                                    <strong>{currentPost.commentsCount}</strong> Comments, Score <strong>{currentPost.voteScore}</strong>
+                                <div className="actions-block">
+                                    <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
+                                    <div>
+                                        <Link className="u-mr-10" to={`/post-edit/${this.postId}`}><Icon name="pencil" /></Link>
+                                        <Icon name="trash" onClick={() => setConfirmModal({isPostModalOpen: true, id: this.postId})} />
+                                    </div>
                                 </div>
                             </div>
-                            <div className="post__content">{currentPost.body}</div>
-                        </div>
-                        <div className="actions-block">
-                            <VoteScoreControls handleVoteScoreChange={this.handlePostVoteScoreChange} />
-                            <div>
-                                <Link className="u-mr-10" to={`/post-edit/${this.postId}`}><Icon name="pencil" /></Link>
-                                <Icon name="trash" onClick={() => setConfirmModal({isPostModalOpen: true, id: this.postId})} />
+                            <div className="post__comments">
+                                <SortSelect target="comments" />
+                                <CommentsList comments={this.props.comments} />
                             </div>
+                            <CommentsForm form="create-comment" type="create" handleCommentSubmit={this.handleCommentSubmit} />
+                            <ConfirmModal
+                                handleSubmit={this.handleDeletePost}
+                                isOpen={this.props.confirmModal.isPostModalOpen}
+                                action="delete this post"
+                            />
                         </div>
-                    </div>
-                    <div className="post__comments">
-                        <SortSelect target="comments" />
-                        <CommentsList comments={this.props.comments} />
-                    </div>
-                    <CommentsForm form="create-comment" type="create" handleCommentSubmit={this.handleCommentSubmit} />
-                    <ConfirmModal
-                        handleSubmit={this.handleDeletePost}
-                        isOpen={this.props.confirmModal.isPostModalOpen}
-                        action="delete this post"
-                    />
-                </div>
-            </Col>
+                    ) : (
+                        <div>
+                            Requested post doesn't exist.
+                        </div>
+                    )}
+
+                </Col>
+            </Row>
         )
     }
 }

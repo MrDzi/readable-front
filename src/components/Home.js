@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import PostsList from './posts/PostsList';
 import SortSelect from './shared/SortSelect';
 import { getPosts } from './posts/actions';
@@ -13,12 +13,14 @@ class Home extends Component {
     render() {
         const { posts } = this.props;
         return (
-            <Col xs={{size: 6, offset: 3}}>
-                {posts.length > 0 && (
-                    <SortSelect target="posts" />
-                )}
-                <PostsList posts={posts} />
-            </Col>
+            <Row className="justify-content-center">
+                <Col xs="6">
+                    {posts.length > 0 && (
+                        <SortSelect target="posts" />
+                    )}
+                    <PostsList posts={posts} />
+                </Col>
+            </Row>
         )
     }
 }
